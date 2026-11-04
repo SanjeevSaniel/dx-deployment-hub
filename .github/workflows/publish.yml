@@ -1,0 +1,35 @@
+name: Publish to npm
+
+# Runs when a version tag is pushed (git tag v1.0.1 && git push --tags).
+# The tag must match the version in package.json, so a release cannot be published from the wrong commit.
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: read
+  # Lets npm record where the package was built (the "provenance" badge on npmjs.com).
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+      - name: Tag matches package.json
+        run: |
+          tag="${GITHUB_REF_NAME#v}"
+          version="$(node -p "require('./package.json').version")"
+          if [ "$tag" != "$version" ]; then
+            echo "Tag v$tag does not match package.json version $version" >&2
+            exit 1
+          fi
+      - run: npm ci --ignore-scripts
+      - run: npm test
+      - run: npm publish --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -1,0 +1,4 @@
+.dx-hub/
+dist/
+*.tgz
+node_modules/

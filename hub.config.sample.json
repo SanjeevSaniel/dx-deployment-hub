@@ -1,0 +1,27 @@
+{
+  "_about": "A sample of hub.config.json. Copy this file to hub.config.json in your project folder (beside tasks.config.json) and put your own servers, rulesets and versions in it. Git ignores hub.config.json, so your server addresses stay on your machine. The hub reads it by itself: save it and the Server, Ruleset and Version dropdowns update. Ruleset names follow Pega's convention (letters, numbers and underscores, starting with a letter, like MyComponents_WIP): no hyphens or spaces. Hyphens belong to versions only (01-01-01). Keys that start with an underscore are notes and are ignored. Each server may carry its own OAuth sign-in: replace the <placeholders> in clientId and clientSecret (a server left with the placeholders, or without those two lines, signs in with the connection named in \"connection\", from the Connections tab). The secret can also be written as env:NAME to read it from an environment variable instead of keeping it in the file. This file is for placeholders only: never put real values in the sample, and never commit hub.config.json.",
+  "namePrefix": "",
+  "servers": [
+    {
+      "name": "Dev",
+      "url": "https://dev.example.com/prweb/",
+      "clientId": "<dev client id>",
+      "clientSecret": "<dev client secret>",
+      "connection": "Default",
+      "build": "dev",
+      "rulesets": [
+        { "name": "MyComponents", "versions": ["01-01-01", "01-01-02"] },
+        { "name": "MyApp", "versions": ["02-00-00"], "build": "production" }
+      ]
+    },
+    {
+      "name": "Test",
+      "url": "https://test.example.com/prweb/",
+      "clientId": "<test client id>",
+      "clientSecret": "env:PEGA_TEST_CLIENT_SECRET",
+      "connection": "Default",
+      "build": "production",
+      "rulesets": [{ "name": "MyComponents", "versions": ["01-01-01"] }]
+    }
+  ]
+}

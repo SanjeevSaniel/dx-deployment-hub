@@ -1,0 +1,1219 @@
+@font-face { font-family: 'Inter'; src: url('/hub-assets/inter.woff2') format('woff2'); font-weight: 100 900; font-display: swap; }
+@font-face { font-family: 'JetBrains Mono'; src: url('/hub-assets/jetbrains-mono.woff2') format('woff2'); font-weight: 100 800; font-display: swap; }
+/* The colours are the Storybook Home page's (navy and orange), laid out like a hosting platform: a quiet top bar,
+   tabs, flat bordered cards and a slide-over for editing. Light or dark follows the system, and the button in the top bar
+   overrides it. */
+:root {
+  --group-line: color-mix(in srgb, var(--muted) 62%, var(--border-strong));
+  --bg: #f1edf8;
+  --surface: #ffffff;
+  --surface-2: #f1edf8;
+  --border: #e2e8f0;
+  --border-strong: #cbd5e1;
+  --text: #211c2e;
+  --text-2: #1e293b;
+  --muted: #64748b;
+  --accent: #5f5389;
+  --accent-hover: #4a4072;
+  --accent-soft: #ebe6f6;
+  --accent-ink: #5f5389;
+  --green: #007f3b;
+  --green-soft: #e8f5ee;
+  --amber: #b45f06;
+  --amber-soft: #fff6e0;
+  --red: #d5281b;
+  --red-soft: #fdeceb;
+  --blue: #005eb8;
+  --blue-soft: #e8f1fb;
+  --violet: #7a2fd0;
+  --violet-soft: #f2eafc;
+  --rose: #b8326e;
+  --rose-soft: #fbe9f1;
+  --console-bg: #0f0d14;
+  --term-bg: #f6f8fb; --term-block: #ffffff; --term-block-hover: #f8fafc; --term-line: #e2e8f0; --term-text: #1e293b; --term-muted: #64748b; --term-cmd: #0f172a; --term-chip: #eef2f7; --term-scroll: #cbd5e1; --ansi-red: #c0392b; --ansi-green: #007f3b; --ansi-yellow: #9a6700; --ansi-blue: #0a58ca; --ansi-magenta: #8250df; --ansi-cyan: #0b7285; --ansi-gray: #6b7280;
+  --on-status: #ffffff;
+  --console-text: #d6deeb;
+  --shadow: 0 1px 2px rgba(33, 28, 46, 0.06);
+  --shadow-pop: 0 12px 40px rgba(33, 28, 46, 0.18);
+  --font: 'Inter', 'Segoe UI Variable Text', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --mono: 'JetBrains Mono', Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) { color-scheme: dark; }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --accent: #6f62a3; --accent-hover: #7c6fb0; --bg: #14121a; --surface: #1b1823; --surface-2: #221e2c; --border: #2e2940; --border-strong: #433c5a; --accent-soft: #2a2440; --accent-ink: #a89cd8;
+    --text: #f7ead9; --text-2: #eadfcf; --muted: #a69fb8;
+    --green: #3ddc97; --green-soft: #0f2a1f; --amber: #f5b14a; --amber-soft: #2b2110;
+    --red: #ff6b61; --red-soft: #2c1513; --blue: #6cb2ff; --blue-soft: #10233a; --violet: #c3a0ff; --violet-soft: #1f1635; --rose: #ff8cbd; --rose-soft: #2e1422;
+    --console-bg: #0c0a10; --term-bg: #07090e; --term-block: #10131a; --term-block-hover: #141824; --term-line: #1c202b; --term-text: #c9d1d9; --term-muted: #7d8590; --term-cmd: #f1f3f9; --term-chip: #1b1f2a; --term-scroll: #2a2e3a; --ansi-red: #ff7b72; --ansi-green: #7ee787; --ansi-yellow: #f2cc60; --ansi-blue: #79c0ff; --ansi-magenta: #d2a8ff; --ansi-cyan: #56d4dd; --ansi-gray: #8b949e; --on-status: #04140c; --shadow: none; --shadow-pop: 0 12px 40px rgba(0, 0, 0, 0.6);
+  }
+}
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --accent: #6f62a3; --accent-hover: #7c6fb0; --bg: #14121a; --surface: #1b1823; --surface-2: #221e2c; --border: #2e2940; --border-strong: #433c5a; --accent-soft: #2a2440; --accent-ink: #a89cd8;
+  --text: #f7ead9; --text-2: #eadfcf; --muted: #a69fb8;
+  --green: #3ddc97; --green-soft: #0f2a1f; --amber: #f5b14a; --amber-soft: #2b2110;
+  --red: #ff6b61; --red-soft: #2c1513; --blue: #6cb2ff; --blue-soft: #10233a; --violet: #c3a0ff; --violet-soft: #1f1635; --rose: #ff8cbd; --rose-soft: #2e1422;
+  --console-bg: #0c0a10; --term-bg: #07090e; --term-block: #10131a; --term-block-hover: #141824; --term-line: #1c202b; --term-text: #c9d1d9; --term-muted: #7d8590; --term-cmd: #f1f3f9; --term-chip: #1b1f2a; --term-scroll: #2a2e3a; --ansi-red: #ff7b72; --ansi-green: #7ee787; --ansi-yellow: #f2cc60; --ansi-blue: #79c0ff; --ansi-magenta: #d2a8ff; --ansi-cyan: #56d4dd; --ansi-gray: #8b949e; --on-status: #04140c; --shadow: none; --shadow-pop: 0 12px 40px rgba(0, 0, 0, 0.6);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body { display: flex; flex-direction: column; overflow: hidden; font-family: var(--font); background: var(--bg); color: var(--text-2); font-size: 14px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+button, input, select { font: inherit; color: inherit; }
+button { cursor: pointer; }
+button:not(:disabled), select:not(:disabled), [role='button'], [role='radio'], [role='tab'], label[for], summary { cursor: pointer; }
+button:disabled, select:disabled, [aria-disabled='true'] { cursor: not-allowed; }
+input[type='search'], input[type='text'], input[type='password'], input:not([type]) { cursor: text; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* ── Header: the name, the tabs and the status in one compact bar ── */
+/* The header follows the window, and so the zoom: at 200% or more a window is only a few hundred CSS pixels wide, so it first lets the status
+   text shorten, then moves the tabs to a row of their own under the name and status, and last keeps only the mark and the status dot. */
+.topbar { flex: none; z-index: 10; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 6px clamp(8px, 1.4vw, 16px); min-height: 46px; padding: 4px clamp(10px, 2vw, 20px); background: var(--surface); border-bottom: 1px solid var(--border); }
+/* The header is one row of controls that are all 30px tall and centred on one line: the mark, the tabs, the toggles, the status and the buttons. The brand
+   is the mark and the name at the left, with a hairline after it that sets it apart from the tabs. */
+.brand { display: flex; align-items: center; gap: 9px; min-width: 0; padding-right: clamp(8px, 1.4vw, 16px); border-right: 1px solid var(--border); height: 30px; color: var(--text); }
+/* The name is one clean line in the system's display face (Segoe UI Variable Display on Windows 11, SF Pro Display on a Mac), which is drawn for headings and
+   reads sharper than the text face at this size. It needs no download; elsewhere it falls back to the system's UI face. */
+.wordmark { min-width: 0; font-family: 'Segoe UI Variable Display', 'SF Pro Display', -apple-system, 'Segoe UI', system-ui, sans-serif; font-size: 16px; font-weight: 600; letter-spacing: -0.012em; line-height: 1; white-space: nowrap; color: var(--text); }
+.topbar .btn-icon { width: 30px; height: 30px; }
+.tabs { justify-self: start; display: flex; gap: 2px; min-width: 0; padding: 2px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface-2); overflow-x: auto; scrollbar-width: none; }
+.tabs::-webkit-scrollbar { display: none; }
+.tab { display: inline-flex; align-items: center; gap: 6px; height: 24px; padding: 0 10px; border: 0; border-radius: 999px; font-size: 13px; background: none; color: var(--muted); font-weight: 500; white-space: nowrap; }
+.tab:hover { background: var(--surface); color: var(--text); }
+.tab[aria-selected='true'] { background: var(--accent-soft); color: var(--accent); }
+.tab .count { padding: 0 6px; line-height: 16px; border-radius: 10px; background: var(--surface); border: 1px solid var(--border); font-size: 11px; color: var(--muted); }
+.top-actions { display: flex; align-items: center; justify-content: flex-end; gap: 8px; min-width: 0; }
+.top-actions .pill { min-width: 0; }
+/* The time left on the sign-in: a clock and the minutes, green while there is plenty, amber as it runs down, rose when it is nearly out. */
+.auth-time { flex: none; display: inline-flex; align-items: center; gap: 4px; padding: 1px 8px 1px 6px; border-radius: 999px; font-size: 12px; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--green); background: color-mix(in srgb, currentColor 13%, transparent); transition: color 0.4s ease, background 0.4s ease; }
+.auth-time svg { width: 13px; height: 13px; }
+.auth-time.is-low { color: var(--amber); }
+.auth-time.is-soon { color: var(--rose); }
+.top-actions .pill #authText { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+@media (max-width: 1000px) { .top-actions .pill #authText { max-width: 12rem; } .tab { padding: 0 10px; } }
+@media (max-width: 720px) {
+  .topbar { grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: 'brand actions' 'tabs tabs'; }
+  .brand { grid-area: brand; }
+  .top-actions { grid-area: actions; }
+  .tabs { grid-area: tabs; margin: 0 -4px; padding-bottom: 2px; }
+  .top-actions .pill #authText { max-width: 9rem; }
+}
+@media (max-width: 440px) {
+  .brand .wordmark { display: none; }
+  .top-actions .pill #authText, .top-actions .pill .auth-time { display: none; }
+  .top-actions .pill { padding: 0 10px; }
+  .tab { padding: 0 9px; font-size: 13px; }
+}
+
+/* The header stays put and the working area fills the rest of the window. Inside it the panes (the runs, the terminal, a
+   table) scroll by themselves, so the page itself does not scroll, as in an app. On a narrow screen it goes back to
+   an ordinary scrolling page, where fixed panes would only get in the way. */
+main { flex: 1; min-height: 0; width: 100%; max-width: 1560px; margin: 0 auto; padding: 14px 16px; display: flex; flex-direction: column; overflow-y: auto; }
+.view { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 12px; }
+.view > .card { flex: none; }
+.view > .card.fill { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+.fill .scroll-x { flex: 1; min-height: 0; overflow: auto; }
+.fill .table thead th { position: sticky; top: 0; z-index: 1; background: var(--surface); }
+@media (max-width: 900px) { body { height: auto; overflow: auto; } main { overflow: visible; } .view, .view > .card.fill { min-height: auto; } }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; align-items: start; margin-bottom: 16px; }
+.runs-card, .term-card { min-height: 0; display: flex; flex-direction: column; }
+.runs-card .empty { flex: 1; display: grid; place-content: center; }
+
+/* ── Pieces ── */
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+.card-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 10px 14px; border-bottom: 1px solid var(--border); background: var(--surface-2); }
+.card-desc { color: var(--muted); font-size: 12.5px; margin-top: 2px; max-width: 70ch; }
+.card-desc .badge { height: 18px; padding: 0 7px; font-size: 11px; vertical-align: 1px; }
+.card-desc.env-file { margin-top: 6px; }
+.card-desc.env-file code { padding: 1px 6px; border-radius: 5px; background: var(--surface-2); border: 1px solid var(--border); font-family: var(--mono); font-size: 11.5px; color: var(--text-2); overflow-wrap: anywhere; }
+.card-desc.env-file .btn { height: 22px; padding: 0 8px; font-size: 11.5px; margin-left: 4px; }
+/* The terminal's small tools: an icon with a short label, quiet until pointed at. */
+.btn-tool { display: inline-flex; align-items: center; gap: 5px; height: 26px; padding: 0 8px; border: 0; border-radius: 6px; background: transparent; color: var(--muted); font-size: 12px; font-weight: 500; transition: background 0.12s, color 0.12s; }
+.btn-tool:hover { background: var(--surface-2); color: var(--text); }
+.btn-tool svg { width: 14px; height: 14px; flex: none; transition: transform 0.2s; }
+.btn-tool.folded svg { transform: rotate(180deg); }
+.card-head h2 { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: var(--text); }
+.ico { display: none; }
+.ico svg { width: 15px; height: 15px; }
+.card-head .count { padding: 0 8px; border-radius: 10px; background: var(--surface-2); border: 1px solid var(--border); font-size: 11.5px; font-weight: 500; color: var(--muted); }
+.card-head.foldable { cursor: pointer; user-select: none; transition: background 0.15s; }
+.card-head.foldable:hover { background: color-mix(in srgb, var(--surface-2) 60%, var(--border)); }
+.fold-caret { display: grid; place-items: center; width: 16px; height: 16px; color: var(--muted); transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1); }
+.fold-caret svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.card.is-collapsed .fold-caret { transform: rotate(-90deg); }
+.card.is-collapsed > :not(.card-head) { display: none; }
+.card.is-collapsed > .card-head { border-bottom-color: transparent; }
+.card:not(.is-collapsed) > :not(.card-head) { animation: foldIn 0.24s ease; }
+@keyframes foldIn { from { opacity: 0; transform: translateY(-5px); } }
+.card-body { padding: 14px; display: flex; flex-direction: column; gap: 12px; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 32px; padding: 0 14px; border-radius: 6px; border: 1px solid var(--border-strong); background: var(--surface); color: var(--text); font-weight: 500; white-space: nowrap; transition: background 0.12s, border-color 0.12s; }
+.btn:hover:not(:disabled) { background: var(--surface-2); border-color: var(--muted); }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.btn-primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn-primary:hover:not(:disabled) { background: var(--accent-hover); border-color: var(--accent-hover); }
+.btn-danger { color: var(--red); }
+.btn-ghost { border-color: transparent; background: transparent; color: var(--muted); }
+.btn-sm { height: 28px; padding: 0 10px; font-size: 13px; }
+.btn-icon { width: 34px; padding: 0; }
+.btn svg, .tab svg { width: 16px; height: 16px; flex: none; }
+.pill { display: inline-flex; align-items: center; gap: 8px; height: 30px; padding: 0 12px; border-radius: 15px; border: 1px solid var(--border-strong); background: var(--surface); color: var(--text-2); font-size: 13px; }
+.pill:hover { background: var(--surface-2); }
+/* The status pill in the header only informs, so it does not react to the pointer. */
+.pill[role='status'], .pill[role='status']:hover { background: var(--surface); cursor: default; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); flex: none; }
+.dot.ok { background: var(--green); } .dot.warn { background: var(--amber); } .dot.bad { background: var(--red); }
+.dot.inv { background: var(--violet); }
+.dot.rose { background: var(--rose); }
+/* The kind of a publish, next to its name in the list of runs: a first publish is quiet, a republish is amber (it replaced what was there), a new version is violet. */
+.kind-tag { display: inline-block; margin-left: 7px; padding: 0 7px; border-radius: 9px; vertical-align: 1px; font-size: 10px; font-weight: 600; letter-spacing: 0.02em; background: var(--surface-2); border: 1px solid var(--border); color: var(--muted); }
+.kind-tag.republish { background: var(--amber-soft); border-color: transparent; color: var(--amber); }
+.kind-tag.newVersion { background: var(--violet-soft); border-color: transparent; color: var(--violet); }
+.dot.run { background: var(--blue); animation: pulse 1.2s ease-in-out infinite; }
+@keyframes pulse { 50% { opacity: 0.35; } }
+.badge { display: inline-flex; align-items: center; height: 20px; padding: 0 8px; border-radius: 10px; font-size: 12px; font-weight: 500; background: var(--surface-2); border: 1px solid var(--border); color: var(--muted); white-space: nowrap; }
+.badge.green { background: var(--green-soft); color: var(--green); border-color: transparent; }
+.badge.amber { background: var(--amber-soft); color: var(--amber); border-color: transparent; }
+.badge.blue { background: var(--blue-soft); color: var(--blue); border-color: transparent; }
+.badge.red { background: var(--red-soft); color: var(--red); border-color: transparent; }
+.mono { font-family: var(--mono); font-size: 12.5px; }
+
+.field { display: flex; flex-direction: column; gap: 7px; min-width: 0; }
+/* Labels use the same small muted capitals as the card headings (PIPELINE, TERMINAL), so the whole page speaks in one voice; they are set in
+   a little from the box edge so they line up with the text inside the box (which starts 12px in), not with the border. */
+.field label { padding-left: 3px; font-weight: 600; color: var(--muted); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; }
+/* ── Pickers: a button and a list standing in for a select ── */
+.pick { position: relative; min-width: 0; }
+.pick-native { display: none !important; }
+.pick-btn { display: flex; align-items: center; justify-content: space-between; gap: 8px; width: 100%; height: 34px; padding: 0 10px 0 12px; border: 1px solid var(--border-strong); border-radius: 6px; background: var(--surface); color: var(--text); text-align: left; transition: border-color 0.15s, box-shadow 0.15s, background 0.15s; }
+.pick-btn:hover:not(:disabled) { border-color: var(--muted); }
+.pick-btn:focus-visible, .pick-btn[aria-expanded='true'] { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.pick-btn:disabled { opacity: 0.55; }
+.pick-text { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pick-caret { flex: none; display: grid; place-items: center; width: 14px; height: 14px; color: var(--muted); transition: transform 0.2s ease; }
+.pick-caret svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.pick-btn[aria-expanded='true'] .pick-caret { transform: rotate(180deg); }
+.pick-pop { position: fixed; z-index: 70; display: flex; flex-direction: column; overflow: hidden; border: 1px solid var(--border-strong); border-radius: 8px; background: var(--surface); box-shadow: var(--shadow-pop); animation: pickIn 0.14s ease; outline: none; }
+@keyframes pickIn { from { opacity: 0; transform: translateY(-4px); } }
+.pick-search { flex: none; height: 34px; padding: 0 12px; border: 0; border-bottom: 1px solid var(--border); background: transparent; outline: none; }
+.pick-list { overflow-y: auto; padding: 4px; scrollbar-width: thin; }
+.pick-opt { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 7px 10px; border-radius: 6px; cursor: pointer; white-space: nowrap; }
+.pick-opt.is-active { background: var(--surface-2); }
+.pick-opt.is-sel { color: var(--accent); font-weight: 600; }
+.pick-opt.is-sel::after { content: '\2713'; font-size: 12px; }
+.pick-none { padding: 10px; color: var(--muted); font-size: 12.5px; }
+/* The values in a dropdown (the button, the list it opens with its search box and options, and a plain select with its list) are set in the same monospace
+   face as the terminal, so a chosen ruleset, version or component reads as a value; the labels and captions around them stay in the page font. The list a
+   plain select opens is drawn by the browser, so its options are told the face too. */
+.pick-btn, .pick-pop, select.input, select.input option, select.input optgroup { font-family: var(--mono); font-size: 12.5px; }
+
+/* The place a build goes: the application across the top, then the ruleset and the version side by side, both starting at the top of the row, so
+   their labels are on one line. */
+.ver { display: inline-flex; align-items: center; gap: 8px; }
+.ver.is-disabled { opacity: 0.55; }
+.ver-part {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  width: 38px;
+}
+.ver-in {
+  width: 38px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.ver-in:hover { border-color: var(--muted); }
+.ver-in:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.ver.is-ok .ver-in { border-color: color-mix(in srgb, var(--green) 55%, var(--border-strong)); }
+.ver.is-bad .ver-in { border-color: var(--red); }
+.ver.is-bad .ver-in:focus { box-shadow: 0 0 0 3px var(--red-soft); }
+.ver-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 18px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--surface-2);
+  color: var(--muted);
+  cursor: pointer;
+  line-height: 0;
+  transition: all 0.12s ease;
+}
+.ver-btn svg {
+  width: 12px;
+  height: 8px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  display: block;
+}
+.ver-btn:hover:not(:disabled) {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-color: var(--accent);
+}
+.ver-btn:active:not(:disabled) {
+  transform: scale(0.92);
+  background: var(--accent);
+  color: #ffffff;
+  border-color: var(--accent);
+}
+.ver-btn:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+  border-color: transparent;
+  background: transparent;
+}
+.ver-cap {
+  font-size: 9px;
+  line-height: 1;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  user-select: none;
+  /* The caption is the first thing in the column, above the boxes, like the heading of a column. */
+  order: -1;
+  margin-bottom: 6px;
+}
+.ver-dash {
+  color: var(--muted);
+  font-weight: 700;
+  font-size: 14px;
+  user-select: none;
+  line-height: 1;
+  margin: 18px 2px 0;
+  align-self: center;
+}
+/* Sections in the drawer, and what a field says as it is typed in. */
+.form-section { margin: 20px 0 -2px; padding-bottom: 6px; border-bottom: 1px solid var(--border); color: var(--muted); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+.form-section:first-child { margin-top: 0; }
+.input.is-ok { border-color: color-mix(in srgb, var(--green) 55%, var(--border-strong)); }
+.input.is-bad { border-color: var(--red); }
+.input.is-bad:focus { box-shadow: 0 0 0 3px var(--red-soft); }
+.field-msg { padding-left: 3px; color: var(--red); font-size: 12px; }
+.drawer-foot .btn-primary:disabled { opacity: 0.45; cursor: not-allowed; }
+.field .hint { padding-left: 3px; color: var(--muted); font-size: 12px; }
+.input { height: 34px; padding: 0 12px; border: 1px solid var(--border-strong); border-radius: 6px; background: var(--surface); width: 100%; }
+.input:hover { border-color: var(--muted); }
+.input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+select.input { padding-right: 28px; }
+.row { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; }
+.segmented { display: inline-grid; grid-auto-flow: column; border: 1px solid var(--border-strong); border-radius: 7px; overflow: hidden; height: 36px; }
+.segmented button { border: 0; background: var(--surface); padding: 0 16px; color: var(--muted); font-weight: 500; }
+.segmented button + button { border-left: 1px solid var(--border-strong); }
+.segmented button[aria-pressed='true'] { background: var(--accent-soft); color: var(--accent); }
+
+/* ── Deploy tab ── */
+.steps-wrap { display: flex; align-items: center; gap: 20px; }
+.steps-wrap .steps { flex: 1; min-width: 0; }
+/* The same small muted capitals as the other cards' headings, so the pipeline card reads as one of them. */
+.steps-title { display: flex; align-items: center; gap: 10px; flex: none; font-weight: 600; color: var(--muted); font-size: 11.5px; letter-spacing: 0.06em; text-transform: uppercase; }
+@media (max-width: 900px) { .steps-wrap { flex-direction: column; align-items: stretch; gap: 12px; } }
+/* Recent runs: a history to look back at, not something to work in, so each is one compact row: a dot for the state, what ran
+   and where on two small lines, and how long ago on the right. The list scrolls inside its box. */
+.runs { list-style: none; display: flex; flex-direction: column; padding: 0; flex: 1; min-height: 0; overflow-y: auto; }
+/* A slim rounded scrollbar with a little air around the thumb, quiet until the pointer is over the list. Firefox gets the thin standard one. */
+.runs::-webkit-scrollbar { width: 12px; }
+.runs::-webkit-scrollbar-track { background: transparent; margin: 4px 0; }
+.runs::-webkit-scrollbar-thumb { border: 3px solid transparent; border-radius: 8px; background: var(--border-strong) padding-box; opacity: 0.6; transition: background 0.15s; }
+.runs::-webkit-scrollbar-thumb:hover { background: var(--muted) padding-box; border-width: 2px; }
+.runs:not(:hover)::-webkit-scrollbar-thumb { background: var(--border) padding-box; }
+@supports not selector(::-webkit-scrollbar) { .runs { scrollbar-width: thin; scrollbar-color: var(--border-strong) transparent; } }
+.run-card { display: grid; grid-template-columns: 8px minmax(0, 1fr) auto; align-items: center; column-gap: 10px; padding: 7px 14px; border-bottom: 1px solid var(--border); cursor: pointer; transition: background 0.12s; }
+.run-card:hover { background: var(--surface-2); }
+.run-card.sel { background: var(--accent-soft); box-shadow: inset 3px 0 0 var(--accent); }
+.run-card .dot { align-self: start; margin-top: 6px; }
+.run-card .title { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12.5px; font-weight: 600; color: var(--text); }
+.run-card .title em { font-style: normal; font-weight: 400; color: var(--muted); }
+.run-card .sub { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 11.5px; color: var(--muted); }
+.run-card .when { font-size: 11.5px; color: var(--muted); white-space: nowrap; align-self: start; padding-top: 1px; }
+.run-card.is-stopped .sub b, .run-card.is-locked .sub b { color: var(--amber); font-weight: 500; }
+.run-card.is-invalid .sub b { color: var(--violet); font-weight: 500; }
+.run-card.is-auth .sub b { color: var(--rose); font-weight: 500; }
+.run-card.is-ok .sub b { color: var(--green); font-weight: 500; } .run-card.is-bad .sub b { color: var(--red); font-weight: 500; } .run-card.is-running .sub b { color: var(--blue); font-weight: 500; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.note-bar.is-info { background: var(--blue-soft); color: var(--blue); }
+/* flex: none, because the card is a column with a fixed height and would otherwise squash the note so its text spills over the table. */
+.note-bar { flex: none; margin: 12px 16px 0; padding: 10px 14px; border-radius: 8px; background: var(--amber-soft); color: var(--amber); font-size: 12.5px; line-height: 1.5; overflow-wrap: anywhere; }
+.note-bar[hidden] { display: none; }
+/* The publish page in two zones: what and where on the left (the target, then the history), progress and output on the right. */
+/* Three boxes: the form and the runs side by side on top, the terminal across the bottom. The runs and the terminal can be hidden from the header (the
+   no-runs and no-term classes), and the grid then gives its room to the rest. The runs box does not size the row (contain: size), so it is as
+   tall as the form and its list scrolls inside. */
+.view.deploy { display: grid; gap: 12px; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-rows: auto minmax(var(--term-min, 340px), 1fr); grid-template-areas: 'form runs' 'term term'; }
+.publish-card { grid-area: form; }
+.runs-card { grid-area: runs; contain: size; }
+.term-card { grid-area: term; }
+.view.deploy > .card { min-width: 0; }
+.view.deploy.no-runs > .runs-card, .view.deploy.no-term > .term-card { display: none; }
+.view.deploy.no-runs { grid-template-columns: minmax(0, 1fr); grid-template-areas: 'form' 'term'; }
+/* With the terminal hidden the form keeps its own height (it is not stretched to fill the screen) and the runs, now with the room, take half the
+   width and the whole height. */
+.view.deploy.no-term { grid-template-rows: minmax(0, 1fr); grid-template-areas: 'form runs'; }
+.view.deploy.no-term > .publish-card { align-self: start; }
+.view.deploy.no-term.no-runs { grid-template-columns: minmax(0, 1fr); grid-template-areas: 'form'; }
+.panel-toggles { display: inline-flex; gap: 2px; }
+.panel-toggle { --tone: var(--blue); display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 10px 0 8px; border: 1px solid var(--border); border-radius: 6px; background: none; color: var(--muted); font-size: 12.5px; font-weight: 500; transition: background 0.12s, color 0.12s, border-color 0.12s; }
+#toggleTerm { --tone: var(--green); }
+/* As the layout buttons of VS Code: the icon is the screen with the box it controls, solid while that box is shown and an outline when it is hidden.
+   A shown box takes its own colour (blue for the runs, green for the terminal); a hidden one is quiet grey, so the state reads at a glance. */
+.panel-toggle:hover { background: color-mix(in srgb, var(--text) 8%, transparent); color: var(--text); }
+.panel-toggle:focus-visible { outline: 1px solid var(--accent); outline-offset: 1px; }
+.panel-toggle svg { width: 16px; height: 16px; flex: none; }
+.panel-toggle .fill { fill: currentColor; stroke: none; opacity: 0; }
+.panel-toggle[aria-pressed='true'] { color: var(--tone); background: color-mix(in srgb, var(--tone) 14%, transparent); border-color: color-mix(in srgb, var(--tone) 42%, transparent); }
+.panel-toggle[aria-pressed='true']:hover { background: color-mix(in srgb, var(--tone) 22%, transparent); }
+.panel-toggle[aria-pressed='true'] .fill { opacity: 1; }
+.sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+/* The pipeline stands in the heading of the publish card. The card measures its own width (a container), so a narrow card, or a window at a high zoom,
+   keeps only the numbers, and a step shows its name while it is the one running or has just failed (the tooltip has it always). */
+.publish-card { container-type: inline-size; }
+/* The details of the chosen target sit behind an info icon, which shows them on hover or focus, so the page keeps the room. */
+.head-right { display: flex; align-items: center; gap: 8px; }
+.info { position: relative; display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; color: var(--muted); cursor: help; }
+.info:hover, .info:focus-visible { color: var(--accent); background: var(--accent-soft); }
+.info svg { width: 16px; height: 16px; }
+.info .tip { position: absolute; right: 0; top: calc(100% + 6px); z-index: 20; width: 270px; padding: 4px; border: 1px solid var(--border-strong); border-radius: 8px; background: var(--surface); box-shadow: var(--shadow-pop); opacity: 0; visibility: hidden; transform: translateY(-4px); transition: opacity 0.15s, transform 0.15s, visibility 0.15s; cursor: default; }
+.info:hover .tip, .info:focus .tip, .info:focus-within .tip { opacity: 1; visibility: visible; transform: translateY(0); }
+.info .facts { border: 0; background: transparent; }
+.row2 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10px; }
+.facts { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 6px 14px; margin: 0; padding: 10px 12px; border: 1px solid var(--border); border-radius: 6px; background: var(--surface-2); font-size: 12.5px; }
+.facts dt { color: var(--muted); }
+.facts dd { margin: 0; color: var(--text); font-weight: 500; text-align: right; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.actions-stack { display: flex; flex-direction: column; gap: 8px; }
+.actions-stack .btn { width: 100%; }
+.actions-stack .btn svg { width: 16px; height: 16px; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+/* The main action is one place with two buttons stacked in it: Publish, and Stop. They swap with a slide and a fade, so the page does not
+   jump and only the one that can be used is there. The other buttons stay where they are and dim while a run goes. */
+.main-action { display: grid; }
+.main-action > .btn { grid-area: 1 / 1; transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), visibility 0s, background 0.2s, border-color 0.2s, filter 0.2s; }
+.btn-stop { background: var(--red); border-color: var(--red); color: #fff; opacity: 0; visibility: hidden; transform: translateY(12px) scale(0.97); pointer-events: none; }
+.btn-stop:hover:not(:disabled) { background: var(--red); border-color: var(--red); filter: brightness(0.92); }
+.actions-stack.running #btnPublish { opacity: 0; visibility: hidden; transform: translateY(-12px) scale(0.97); pointer-events: none; transition: opacity 0.25s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), visibility 0s 0.3s; }
+.actions-stack.running .btn-stop { opacity: 1; visibility: visible; transform: none; pointer-events: auto; transition-delay: 0.08s; }
+/* While it runs the Stop button shows that it is working: a spinner, and a light that moves along it. */
+.actions-stack.running .btn-stop::before { content: ''; width: 13px; height: 13px; border-radius: 50%; border: 2px solid currentColor; border-top-color: transparent; animation: spin 0.8s linear infinite; }
+.actions-stack.running .btn-stop { background-image: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, 0.22) 50%, transparent 65%); background-size: 250% 100%; background-repeat: no-repeat; animation: stopSheen 2.2s ease-in-out infinite; }
+@keyframes stopSheen { 0% { background-position: 120% 0; } 60%, 100% { background-position: -120% 0; } }
+.action-row { transition: opacity 0.3s ease; }
+/* Publish all is the one button here that puts everything on the server, so it shows how many that is, and warms to amber when pointed at. */
+.btn-all .all-n { min-width: 1.5em; padding: 0 6px; border-radius: 9px; background: var(--surface-2); border: 1px solid var(--border); color: var(--muted); font-size: 11px; font-weight: 600; line-height: 16px; text-align: center; }
+.btn-all .all-n:empty { display: none; }
+/* A small accent pill beside the Component label; the label's uppercase and letter-spacing are reset so the digits stay compact. */
+.comp-n { display: inline-block; margin-left: 6px; min-width: 1.6em; padding: 0 6px; border-radius: 9px; background: var(--surface-2); border: 1px solid var(--border); color: var(--text); font-size: 11px; font-weight: 600; letter-spacing: 0; line-height: 14px; text-align: center; vertical-align: 1px; }
+.comp-n:empty { display: none; }
+.btn-all:hover:not(:disabled) { color: var(--amber); border-color: color-mix(in srgb, var(--amber) 60%, transparent); background: var(--amber-soft); }
+.btn-all:hover:not(:disabled) .all-n { color: var(--amber); border-color: color-mix(in srgb, var(--amber) 40%, transparent); background: transparent; }
+.actions-stack.running .action-row { opacity: 0.45; }
+@media (prefers-reduced-motion: reduce) { .main-action > .btn, .actions-stack.running .btn-stop { transition: none !important; animation: none !important; } }
+/* Each button starts from the width of its words (and the count) and then they share what is left, so the row is always full: wider words, wider
+   button. On a narrow card they wrap, and each line is full too. */
+.action-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.actions-stack .action-row .btn { width: auto; flex: 1 1 auto; padding: 0 14px; }
+.card-head h2 { text-transform: uppercase; letter-spacing: 0.06em; font-size: 11.5px; color: var(--muted); }
+@media (max-width: 900px) { .publish-body { grid-template-columns: minmax(0, 1fr); } .view.deploy, .view.deploy[class] { display: flex; flex-direction: column; } .runs-card { contain: none; max-height: 400px; } .term-card { min-height: 360px; } }
+.stack { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.summary .what { color: var(--muted); line-height: 1.6; }
+.summary .what b { color: var(--text); font-weight: 600; }
+.target-old { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; padding: 12px 14px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px; }
+.target .item { display: flex; flex-direction: column; min-width: 0; }
+.target .item span { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
+.target .item b { font-weight: 500; color: var(--text); word-break: break-all; }
+.target .grow { flex: 1; }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.action-grid .btn { width: 100%; }
+.stale-bar { flex: none; padding: 8px 20px; background: var(--amber-soft); color: var(--amber); border-bottom: 1px solid var(--border); font-size: 12.5px; font-weight: 500; }
+.stale-bar[hidden] { display: none; }
+.warn-box.is-auth { background: var(--rose-soft); color: var(--rose); }
+.warn-box { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 10px 14px; border-radius: 8px; background: var(--amber-soft); color: var(--amber); }
+/* ── The pipeline ──────────────────────────────────────────────────────────────────────────────────────────────
+   Five stops in one row: a round node with a small line drawing of what the step does, then its name and one line saying what is happening
+   (what it does while waiting, "Checking..." while running, "Passed" when done, why it stopped when it did not). A short route joins each
+   stop to the one before; it fills green once that step is done, and a small parcel travels along it while the next step runs.
+   Colour carries the state: grey dashed waiting, blue running (a dashed orbit turns round the node), green done, red stopped, and
+   amber, violet and rose for a locked ruleset, an invalid version and a sign-in. pipeline.js only sets one of those words as a class on
+   the step; everything seen here follows from it. */
+@property --tone { syntax: '<color>'; inherits: true; initial-value: #94a3b8; }
+.steps { --node: 30px; display: flex; align-items: center; }
+.step {
+  --tone: var(--border-strong); --tone-soft: var(--surface-2);
+  position: relative; flex: 1 1 0; min-width: 0; display: grid; grid-template-columns: var(--node) minmax(0, max-content) minmax(18px, 1fr);
+  grid-template-areas: 'node name line' 'node sub line'; align-items: center; column-gap: 9px; row-gap: 0;
+  color: var(--muted); transition: --tone 0.5s ease, color 0.4s ease;
+  animation: stepIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.step:last-child { grid-template-columns: var(--node) minmax(0, max-content); grid-template-areas: 'node name' 'node sub'; flex: 0 0 auto; padding-right: 8px; }
+.step:nth-child(2) { animation-delay: 0.06s; } .step:nth-child(3) { animation-delay: 0.12s; } .step:nth-child(4) { animation-delay: 0.18s; } .step:nth-child(5) { animation-delay: 0.24s; }
+
+/* The route to the next step: a line that runs on from the end of this step's words to the next node, and ends in an arrowhead, so the
+   direction of the flow is plain. Dashed while waiting, solid green once this step is done, and dashes running along it, in blue, while
+   the next step is the one that is running. */
+.step:not(:last-child)::before {
+  content: ''; grid-area: line; align-self: center; height: 3px; margin: 0 14px 0 12px; border-radius: 3px;
+  background: repeating-linear-gradient(90deg, var(--border-strong) 0 5px, transparent 5px 9px);
+  transition: background 0.6s ease;
+}
+.step:not(:last-child)::after {
+  content: ''; grid-area: line; align-self: center; justify-self: end; width: 7px; height: 7px; margin-right: 10px; box-sizing: border-box;
+  border-top: 2.5px solid var(--border-strong); border-right: 2.5px solid var(--border-strong); transform: rotate(45deg); border-radius: 1px;
+  transition: border-color 0.6s ease;
+}
+.step.done:not(:last-child)::before { background: linear-gradient(90deg, var(--green), color-mix(in srgb, var(--green) 70%, var(--blue))); }
+.step.done:not(:last-child)::after { border-color: var(--green); }
+.step.done:has(+ .step.active)::before { background: repeating-linear-gradient(90deg, var(--blue) 0 5px, transparent 5px 9px); animation: dashRun 0.7s linear infinite; }
+.step.done:has(+ .step.active)::after { border-color: var(--blue); }
+
+.node {
+  grid-area: node; position: relative; z-index: 1; width: var(--node); height: var(--node); border-radius: 50%; display: grid; place-items: center;
+  background: var(--surface); border: 2px dashed var(--tone); color: var(--tone); box-sizing: border-box;
+  transition: background 0.5s ease, border-color 0.5s ease, color 0.4s ease, box-shadow 0.6s ease;
+}
+.node .doodle { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.4s ease; }
+/* The number, or the mark that replaces it once the step has an outcome. Both are centred in the circle with a line height of 1, so a digit
+   or a tick sits in the middle and not a little high or to one side. */
+.badge {
+  position: absolute; top: -5px; right: -5px; width: 15px; height: 15px; box-sizing: border-box; padding: 0; display: grid; place-items: center;
+  border-radius: 50%; background: var(--surface); border: 1.5px solid var(--border-strong); color: var(--muted);
+  font-style: normal; font-size: 9px; font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums;
+  transition: background 0.4s ease, border-color 0.4s ease, color 0.4s ease;
+}
+.badge b { display: block; font-weight: 700; line-height: 1; }
+.badge svg { display: none; width: 9px; height: 9px; margin: 0; flex: none; fill: none; stroke: currentColor; stroke-width: 3.4; stroke-linecap: round; stroke-linejoin: round; }
+
+.name { grid-area: name; align-self: end; max-width: 100%; font-size: 12px; font-weight: 700; line-height: 1.25; letter-spacing: 0.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: color 0.4s ease; }
+.sub { grid-area: sub; align-self: start; position: relative; max-width: 100%; min-height: 13px; font-size: 10.5px; font-weight: 500; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--muted); transition: color 0.4s ease; }
+.sub > span { display: none; }
+.step:not(.active):not(.done):not(.failed):not(.locked):not(.invalid):not(.auth) .s-idle,
+.step.active .s-active, .step.done .s-done, .step.failed .s-failed, .step.locked .s-locked, .step.invalid .s-invalid, .step.auth .s-auth { display: inline; animation: fadeUp 0.35s ease both; }
+
+/* The states. A waiting step keeps the dashed grey node. */
+.step.active { --tone: var(--blue); --tone-soft: var(--blue-soft); }
+.step.done { --tone: var(--green); --tone-soft: var(--green-soft); }
+.step.failed { --tone: var(--red); --tone-soft: var(--red-soft); }
+.step.locked { --tone: var(--amber); --tone-soft: var(--amber-soft); }
+.step.invalid { --tone: var(--violet); --tone-soft: var(--violet-soft); }
+.step.auth { --tone: var(--rose); --tone-soft: var(--rose-soft); }
+.step:is(.active, .done, .failed, .locked, .invalid, .auth) .node { border-style: solid; background: var(--tone-soft); }
+.step:is(.active, .done, .failed, .locked, .invalid, .auth) :is(.name, .sub) { color: var(--tone); }
+.step:is(.done, .failed, .locked, .invalid, .auth) .badge { background: var(--tone); border-color: var(--tone); color: var(--on-status); }
+.step.active .badge { border-color: var(--blue); color: var(--blue); }
+
+/* Running: a dashed orbit turns round the node, the drawing bobs, and the node glows. */
+.step.active .node { box-shadow: 0 5px 14px -5px color-mix(in srgb, var(--blue) 70%, transparent); }
+.step.active .node::before { content: ''; position: absolute; inset: -5px; border-radius: 50%; border: 2px dashed color-mix(in srgb, var(--blue) 55%, transparent); animation: spin 7s linear infinite; }
+.step.active .doodle { animation: bob 1.3s ease-in-out infinite; }
+/* Done: the node pops, the number becomes a tick that draws itself. */
+.step.done .node { animation: pop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.step.done .badge .tick, .step.failed .badge .cross { display: block; stroke-dasharray: 26; stroke-dashoffset: 26; animation: draw 0.5s 0.15s ease forwards; }
+.step:is(.done, .failed, .locked, .invalid, .auth) .badge b { display: none; }
+.step.locked .badge::before { content: '\1F512'; font-size: 8px; line-height: 1; }
+.step.invalid .badge::before { content: '!'; font-size: 11px; font-weight: 800; line-height: 1; }
+.step.auth .badge::before { content: '\1F511'; font-size: 8px; line-height: 1; }
+/* Stopped: the node shakes once. */
+.step:is(.failed, .locked, .invalid, .auth) .node { animation: shake 0.5s ease; }
+/* The last stop done means the component is live in Pega: a little burst of confetti round it. */
+#step-publish.done .node::after {
+  content: ''; position: absolute; left: 50%; top: 50%; width: 4px; height: 4px; margin: -2px; border-radius: 50%; pointer-events: none;
+  background: var(--accent); animation: confetti 1.1s ease-out both;
+  box-shadow: 0 -22px 0 0 var(--accent), 19px -11px 0 -1px var(--blue), 22px 7px 0 0 var(--green), 10px 20px 0 -1px var(--violet), -12px 20px 0 0 var(--amber), -22px 5px 0 -1px var(--rose), -19px -13px 0 0 var(--blue);
+}
+#step-publish.done .doodle { animation: launch 0.9s ease-out both; }
+
+@keyframes draw { to { stroke-dashoffset: 0; } }
+@keyframes pop { 0% { transform: scale(0.6); } 60% { transform: scale(1.14); } 100% { transform: scale(1); } }
+@keyframes shake { 20% { transform: translateX(-3px); } 40% { transform: translateX(3px); } 60% { transform: translateX(-2px); } 80% { transform: translateX(1px); } }
+@keyframes stepIn { from { opacity: 0; transform: translateY(8px) scale(0.97); } }
+@keyframes bob { 50% { transform: translateY(-1.5px) rotate(-4deg); } }
+@keyframes dashRun { to { background-position: 9px 0; } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(3px); } }
+@keyframes confetti { 0% { transform: scale(0.2); opacity: 1; } 70% { opacity: 1; } 100% { transform: scale(1.25); opacity: 0; } }
+@keyframes launch { 0% { transform: translateY(0); } 40% { transform: translateY(-4px) rotate(8deg); } 100% { transform: translateY(0); } }
+
+/* In the heading of the publish card the card measures its own width: a narrower card drops the one-line notes, a narrower one the names. */
+.head-steps { flex: 1; min-width: 0; }
+.head-steps .steps { min-width: 0; }
+@container (max-width: 720px) {
+  .step:not(.active):not(.failed):not(.locked):not(.invalid):not(.auth) .sub { display: none; }
+  .step:not(.active):not(.failed):not(.locked):not(.invalid):not(.auth) .name { align-self: center; grid-row: 1 / 3; }
+}
+@container (max-width: 520px) {
+  .steps { --node: 28px; }
+  .step:not(:last-child):not(.active):not(.failed):not(.locked):not(.invalid):not(.auth) { grid-template-columns: var(--node) 0 minmax(14px, 1fr); }
+  .step:last-child:not(.active):not(.failed):not(.locked):not(.invalid):not(.auth) { grid-template-columns: var(--node); }
+  .step:not(.active):not(.failed):not(.locked):not(.invalid):not(.auth) .name { display: none; }
+  .step:is(.active, .failed, .locked, .invalid, .auth) { flex-grow: 2.4; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .step, .step .node, .step .node::before, .step .node::after, .step .doodle, .step::before, .step::after, .sub > span { animation: none !important; transition: none !important; }
+}
+
+.table { width: 100%; border-collapse: collapse; }
+.table th { text-align: left; font-weight: 500; font-size: 12px; color: var(--muted); padding: 9px 16px; border-bottom: 1px solid var(--border); white-space: nowrap; }
+.table td { padding: 10px 16px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+.table tr:last-child td { border-bottom: 0; }
+.table tbody tr.click { cursor: pointer; }
+.table tbody tr.click:hover, .table tbody tr.sel { background: var(--surface-2); }
+.table .cell-main { display: flex; align-items: center; gap: 10px; font-weight: 500; color: var(--text); }
+.table .sub { color: var(--muted); font-size: 12px; font-weight: 400; }
+.table .end { text-align: right; white-space: nowrap; }
+.scroll-x { overflow-x: auto; }
+.empty { padding: 36px 20px; text-align: center; color: var(--muted); }
+.empty b { display: block; color: var(--text); margin-bottom: 4px; }
+
+/* The terminal follows the page's light or dark theme. It is drawn in the manner of Warp: every run is a block (an accordion) with its
+   own command line, status and output. A finished run folds up to its heading, the heading stays at the top while its output
+   scrolls, and an input bar sits underneath. The bar is only a cue: nothing is typed here, runs start from the buttons. */
+.console { position: relative; flex: 1; min-height: 0; display: flex; flex-direction: column; background: var(--term-bg); border-radius: 0; font-family: var(--mono); color: var(--term-text); }
+/* The terminal is the one thing that scrolls: the blocks in it have no scroll box of their own, so a long output is read by scrolling the
+   terminal, and each block's heading stays at the top (sticky) while its output passes beneath, until the next block's heading takes over. */
+.term { flex: 1; min-height: 0; overflow: auto; padding: 0 0 4px; overflow-anchor: auto; scrollbar-width: thin; scrollbar-color: var(--term-scroll) transparent; }
+.term:empty::before { content: 'Nothing has run yet. Each run appears here as a block.'; display: block; padding: 18px 20px; color: var(--term-muted); font-size: 12.5px; }
+.term > .block:first-child { margin-top: 8px; }
+.block { container-type: inline-size; position: relative; margin: 0 8px 6px; border: 1px solid var(--term-line); border-radius: 8px; background: var(--term-block); transition: border-color 0.15s, box-shadow 0.15s; }
+.block:hover { border-color: var(--border-strong); }
+.block.flash { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+.block::before { content: ''; position: absolute; left: 0; top: 6px; bottom: 6px; width: 3px; border-radius: 0 3px 3px 0; background: var(--border-strong); }
+.block.ok::before { background: var(--green); }
+.block.bad::before { background: var(--red); }
+.block.stopped::before { background: var(--amber); }
+.block.run::before { background: var(--blue); animation: pulse 1.2s ease-in-out infinite; }
+/* The block that is running looks alive: a blue tint over its heading with a light sweeping along the bottom edge. One that has just
+   finished keeps a soft ring in its result colour for a minute and a half, so the latest result stands out from older ones. */
+.block.run .b-head { background: linear-gradient(90deg, color-mix(in srgb, var(--blue) 14%, var(--term-block)), var(--term-block) 70%); }
+.block.run .b-head::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--blue), transparent); background-size: 40% 100%; background-repeat: no-repeat; animation: sweep 1.6s ease-in-out infinite; }
+.block.fresh { box-shadow: 0 0 0 1px color-mix(in srgb, var(--term-muted) 35%, transparent); }
+.block.fresh.ok { box-shadow: 0 0 0 1px color-mix(in srgb, var(--green) 45%, transparent); }
+.block.fresh.bad { box-shadow: 0 0 0 1px color-mix(in srgb, var(--red) 45%, transparent); }
+.block.fresh.locked, .block.fresh.stopped { box-shadow: 0 0 0 1px color-mix(in srgb, var(--amber) 45%, transparent); }
+.block.fresh.invalid { box-shadow: 0 0 0 1px color-mix(in srgb, var(--violet) 45%, transparent); }
+.block.fresh.auth { box-shadow: 0 0 0 1px color-mix(in srgb, var(--rose) 45%, transparent); }
+@keyframes sweep { from { background-position: -50% 0; } to { background-position: 150% 0; } }
+
+/* The heading is the control of the accordion: a chevron, the state, the command with where it went, a chip and Copy. */
+.b-head { position: sticky; top: 0; z-index: 2; display: grid; grid-template-columns: 16px 18px 1.6em minmax(200px, 1fr) clamp(70px, calc(100cqw - 214px - 340px - var(--c-status, 200px) - var(--c-ruleset, 176px) - var(--c-version, 80px)), var(--c-server, 150px)) var(--c-status, 200px) var(--c-ruleset, 176px) var(--c-version, 80px) 64px 22px; align-items: center; column-gap: 6px; padding: 5px 10px 5px 12px; border-radius: 8px; background: var(--term-block); cursor: pointer; user-select: none; }
+.b-head:hover { background: var(--term-block-hover); }
+.b-head:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.block:not(.collapsed) .b-head { border-radius: 8px 8px 0 0; border-bottom: 1px solid var(--term-line); }
+.b-caret { flex: none; display: grid; place-items: center; width: 16px; height: 16px; color: var(--term-muted); transition: transform 0.2s ease; }
+.b-caret svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.block:not(.collapsed) .b-caret { transform: rotate(90deg); }
+.b-status { flex: none; display: grid; place-items: center; width: 18px; height: 18px; border-radius: 50%; font-size: 12px; font-weight: 700; background: var(--term-chip); color: var(--term-muted); }
+.block.ok .b-status { background: var(--green-soft); color: var(--green); }
+.block.ok .b-status::before { content: '\2713'; }
+.block.bad .b-status { background: var(--red-soft); color: var(--red); }
+.block.bad .b-status::before { content: '\00d7'; font-size: 15px; line-height: 1; }
+.block.locked::before { background: var(--amber); }
+.block.locked .b-status { background: var(--amber-soft); color: var(--amber); }
+.block.locked .b-status::before { content: '\1F512'; font-size: 11px; line-height: 1; }
+.block.locked .b-chip { background: var(--amber-soft); color: var(--amber); }
+.block.invalid::before { background: var(--violet); }
+.block.invalid .b-status { background: var(--violet-soft); color: var(--violet); }
+.block.invalid .b-status::before { content: '!'; font-size: 13px; font-weight: 800; line-height: 1; }
+.block.invalid .b-chip { background: var(--violet-soft); color: var(--violet); }
+.block.auth::before { background: var(--rose); }
+.block.auth .b-status { background: var(--rose-soft); color: var(--rose); }
+.block.auth .b-status::before { content: '\1F511'; font-size: 11px; line-height: 1; }
+.block.auth .b-chip { background: var(--rose-soft); color: var(--rose); }
+.block.stopped .b-status { background: var(--amber-soft); color: var(--amber); }
+.block.stopped .b-status::before { content: ''; width: 7px; height: 7px; background: currentColor; border-radius: 1px; }
+.block.run .b-status { background: var(--blue-soft); }
+.block.run .b-status::before { content: ''; width: 11px; height: 11px; border-radius: 50%; border: 2px solid var(--blue); border-top-color: transparent; animation: spin 0.8s linear infinite; }
+.b-num { flex: none; color: var(--term-muted); font-size: 11.5px; font-weight: 500; min-width: 1.6em; }
+/* The command and where it went share one line, so a heading is one row high and more of the room is the output's. */
+/* The grid is the same for every heading, so each column (title, server, status, ruleset, version, time) lines up from one run to the next. The
+   wrapper takes no box of its own: its spans are cells of the heading's grid. Every cell is pinned to row 1: the grid places items in page order,
+   and one whose column lies before the last placed would otherwise start a second row, making the heading several lines tall. */
+.b-main { display: contents; }
+.b-head > *, .b-main > * { grid-row: 1; }
+.b-caret { grid-column: 1; } .b-status { grid-column: 2; } .b-num { grid-column: 3; } .b-cmd { grid-column: 4; }
+.b-server { grid-column: 5; } .b-chip { grid-column: 6; justify-self: start; } .b-ruleset { grid-column: 7; justify-self: start; } .b-version { grid-column: 8; } .b-time { grid-column: 9; text-align: right; } .b-copy { grid-column: 10; justify-self: end; }
+.b-cmd { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--term-cmd); font-size: 12.5px; font-weight: 600; }
+.block.collapsed .b-cmd { font-weight: 500; }
+/* Server, ruleset and version cells: a small outline icon and the value, in the terminal's mono face; the value is cut with an ellipsis. */
+.b-cell { min-width: 0; display: inline-flex; align-items: center; gap: 5px; line-height: 18px; color: var(--term-muted); font-family: var(--mono); font-size: 11.5px; }
+.b-cell svg { flex: none; width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+/* The ruleset and version are what the run published to, so they take the title's bright colour (the server stays muted), with the icon in the accent. */
+.b-ruleset, .b-version { color: var(--term-cmd); font-weight: 500; }
+.b-ruleset svg, .b-version svg { color: var(--accent); }
+.b-cell-text { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.b-chip { flex: none; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: inline-flex; align-items: center; gap: 6px; padding: 0 8px; border-radius: 10px; font-size: 11px; font-weight: 500; background: var(--term-chip); color: var(--term-muted); }
+.block.ok .b-chip { background: var(--green-soft); color: var(--green); }
+.block.bad .b-chip { background: var(--red-soft); color: var(--red); }
+.block.stopped .b-chip { background: var(--amber-soft); color: var(--amber); }
+.block.run .b-chip { background: var(--blue-soft); color: var(--blue); }
+/* Copy is an icon, always visible, in the last column of the heading. */
+.b-copy { display: grid; place-items: center; width: 22px; height: 18px; padding: 0; border: 0; border-radius: 5px; background: var(--term-chip); color: var(--term-muted); cursor: pointer; transition: background 0.15s, color 0.15s; }
+.b-copy svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.b-time { flex: none; white-space: nowrap; color: var(--term-muted); font-family: var(--mono); font-size: 11.5px; font-variant-numeric: tabular-nums; }
+.b-copy:hover { background: var(--border-strong); color: var(--term-cmd); }
+.b-body { display: grid; grid-template-rows: 1fr; transition: grid-template-rows 0.22s ease; }
+.b-inner { min-height: 0; overflow: hidden; }
+.block.collapsed .b-body { grid-template-rows: 0fr; }
+/* No max-height and no overflow: the output is as tall as it is and the terminal scrolls. */
+.b-out { margin: 0; padding: 6px 12px 8px 14px; font-family: var(--mono); font-size: 12px; line-height: 1.5; color: var(--term-text); white-space: pre-wrap; word-break: break-word; scrollbar-width: thin; scrollbar-color: var(--term-scroll) transparent; }
+.b-out:empty { display: none; }
+@media (prefers-reduced-motion: reduce) { .b-body, .b-caret { transition: none; } }
+.jump { position: absolute; right: 22px; bottom: 74px; z-index: 2; display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 12px; border: 1px solid var(--border-strong); border-radius: 14px; background: var(--term-block); color: var(--term-text); font: inherit; font-size: 12px; box-shadow: 0 4px 14px rgba(33, 28, 46, 0.18); }
+.jump:hover { border-color: var(--accent); color: var(--accent); }
+.term-input { display: flex; align-items: center; gap: 10px; margin: 2px 10px 10px; padding: 10px 14px; border: 1px solid var(--term-line); border-radius: 8px; background: var(--term-block); color: var(--term-muted); font-size: 13px; }
+.term-input .chev { color: var(--accent); font-weight: 700; }
+.caret { width: 8px; height: 16px; background: var(--term-text); opacity: 0.55; animation: blink 1.05s steps(2, start) infinite; }
+@keyframes blink { to { visibility: hidden; } }
+/* Copy and Clear are icons only (the tooltip names them), so the heading stays calm; Collapse keeps its word as the one control that changes the layout. */
+.term-card .btn-tool:not(#btnCollapse) .lbl { display: none; }
+@media (prefers-reduced-motion: reduce) { .caret, .block::before { animation: none !important; } }
+.ansi-red { color: var(--ansi-red); } .ansi-green { color: var(--ansi-green); } .ansi-yellow { color: var(--ansi-yellow); } .ansi-blue { color: var(--ansi-blue); }
+.ansi-magenta { color: var(--ansi-magenta); } .ansi-cyan { color: var(--ansi-cyan); } .ansi-gray, .ansi-dim { color: var(--ansi-gray); } .ansi-bold { font-weight: 700; }
+
+/* ── Slide-over (add and edit) ── */
+.scrim { position: fixed; inset: 0; background: rgba(33, 28, 46, 0.35); opacity: 0; pointer-events: none; transition: opacity 0.18s; z-index: 20; }
+.scrim.open { opacity: 1; pointer-events: auto; }
+.drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(440px, 100vw); background: var(--surface); border-left: 1px solid var(--border); box-shadow: var(--shadow-pop); transform: translateX(100%); transition: transform 0.22s ease; z-index: 21; display: flex; flex-direction: column; }
+.drawer.open { transform: translateX(0); }
+.drawer-head { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--border); }
+.drawer-head h2 { font-size: 16px; font-weight: 600; color: var(--text); }
+.drawer-body { padding: 20px; display: flex; flex-direction: column; gap: 18px; overflow-y: auto; flex: 1; }
+.drawer-foot { display: flex; justify-content: space-between; gap: 8px; padding: 14px 20px; border-top: 1px solid var(--border); }
+.form-error { padding: 10px 12px; border-radius: 8px; background: var(--red-soft); color: var(--red); font-size: 13px; }
+.note { padding: 10px 12px; border-radius: 8px; background: var(--surface-2); border: 1px solid var(--border); color: var(--muted); font-size: 12.5px; }
+@media (prefers-reduced-motion: reduce) { .drawer, .scrim, .step i, .step::after { transition: none !important; animation: none !important; } }
+
+.toast { position: fixed; bottom: 20px; left: 50%; transform: translate(-50%, 20px); padding: 10px 16px; border-radius: 8px; background: var(--text); color: var(--surface); box-shadow: var(--shadow-pop); opacity: 0; pointer-events: none; transition: opacity 0.18s, transform 0.18s; z-index: 30; max-width: 90vw; }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+.toast.error { background: var(--red); color: #fff; }
+[hidden] { display: none !important; }
+
+
+/* ── The skeleton: what the page shows until the server has answered ──
+   The page's own words stay (headings, labels, buttons), because they are known; what comes from the server (the status, the counts, the
+   dropdowns, the run list, the terminal) is a shimmering placeholder, so nothing flashes "Nothing published yet" or an empty dropdown first. */
+@keyframes skelShimmer {
+  from { background-position: 100% 0; }
+  to { background-position: -100% 0; }
+}
+@keyframes contentIn {
+  from { opacity: 0; transform: translateY(6px); }
+}
+body {
+  --skel-a: color-mix(in srgb, var(--border) 85%, transparent);
+  --skel-b: color-mix(in srgb, var(--border-strong) 55%, transparent);
+}
+body.is-loading :is(.input, .pill, .count, .pick-btn, .ver) {
+  color: transparent !important;
+  border-color: transparent !important;
+  background: linear-gradient(90deg, var(--skel-a) 25%, var(--skel-b) 50%, var(--skel-a) 75%) 100% 0 / 200% 100% !important;
+  box-shadow: none !important;
+  appearance: none;
+  animation: skelShimmer 1.4s ease-in-out infinite;
+  pointer-events: none;
+  user-select: none;
+}
+body.is-loading :is(.pill, .count, .pick-btn, .ver) * { visibility: hidden; }
+body.is-loading .pill { min-width: 9rem; }
+body.is-loading #runsEmpty { display: none; }
+body.is-loading :is(.btn, .tab, .info) { pointer-events: none; }
+body.is-loading .btn { opacity: 0.5; }
+.btn { transition: opacity 0.3s ease; }
+.skel-line {
+  display: block;
+  height: 10px;
+  border-radius: 5px;
+  background: linear-gradient(90deg, var(--skel-a) 25%, var(--skel-b) 50%, var(--skel-a) 75%) 100% 0 / 200% 100%;
+  animation: skelShimmer 1.4s ease-in-out infinite;
+}
+.skel-line.w25 { width: 25%; } .skel-line.w30 { width: 30%; } .skel-line.w35 { width: 35%; } .skel-line.w40 { width: 40%; } .skel-line.w45 { width: 45%; }
+.skel-line.w50 { width: 50%; } .skel-line.w55 { width: 55%; } .skel-line.w60 { width: 60%; } .skel-line.w65 { width: 65%; } .skel-line.w70 { width: 70%; } .skel-line.w80 { width: 80%; }
+.skel-row { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-bottom: 1px solid var(--border); list-style: none; }
+.skel-row > div { display: flex; flex: 1; flex-direction: column; gap: 8px; }
+.skel-dot { flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--skel-b); }
+.skel-block { display: flex; flex-direction: column; gap: 10px; margin: 0 10px 8px; padding: 14px; border: 1px solid var(--term-line); border-radius: 8px; background: var(--term-block); }
+body.is-ready :is(.view.deploy .card, .steps-box) { animation: contentIn 0.4s ease both; }
+@media (prefers-reduced-motion: reduce) {
+  body.is-loading :is(.input, .pill, .count, .ver), .skel-line { animation: none; }
+  body.is-ready :is(.view.deploy .card, .steps-box) { animation: none; }
+}
+
+/* ── The sign-in button in the header, and the finishing of the status colours ──
+   The one place that asks for a sign-in is the header. Its button is the page's orange, and turns the sign-in rose after a failure, the
+   same rose as the failed sign-in in the terminal and the run list. */
+.btn-signin { display: inline-flex; align-items: center; height: 30px; padding: 0 14px; border: 0; border-radius: 15px; background: var(--accent); color: #fff; font-weight: 600; font-size: 13px; transition: background 0.15s; }
+.btn-signin:hover:not(:disabled) { background: var(--accent-hover); }
+.btn-signin.is-failed, .btn-signin.is-failed:hover:not(:disabled) { background: var(--rose); }
+.btn-signin.is-failed:hover:not(:disabled) { filter: brightness(0.92); }
+.btn-signin:disabled { background: var(--border); color: var(--muted); }
+.btn-signin[hidden] { display: none; }
+
+.topbar .tab { transition: background 0.15s, color 0.15s; }
+.run-card.sel { box-shadow: inset 3px 0 0 var(--accent); }
+
+/* The actions beyond Publish are folded away; the summary reads as a quiet link, with a turning arrow. */
+.more-options > summary { cursor: pointer; list-style: none; display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted, inherit); padding: 4px 2px; }
+.more-options > summary::-webkit-details-marker { display: none; }
+.more-options > summary::before { content: ''; width: 6px; height: 6px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(-45deg); transition: transform 0.2s ease; }
+.more-options[open] > summary::before { transform: rotate(45deg); }
+.more-options > .action-row { margin-top: 8px; }
+@media (prefers-reduced-motion: reduce) { .more-options > summary::before { transition: none; } }
+
+/* The form in two plain rows. Row one is where it goes: Application, Ruleset and Version side by side. Row two is what goes: the Component
+   and its Publish button, on one line, with More options under them. Row one lines its labels up along the top; row two sits on the bottom of its boxes; the note under the Ruleset has its own room. A narrow card stacks everything in one column. */
+
+
+/* With Runs closed the page is one column: the form and the terminal (if it is open) take the width there is, up to a width the fields still
+   read well at, the same width for both, and sit in the middle. */
+.view.deploy.no-runs > .publish-card, .view.deploy.no-runs > .term-card { width: 100%; max-width: 1040px; justify-self: center; }
+
+/* A panel being closed fades and slips up a little, the way it fades in (contentIn) when it comes back; the script takes it out of the layout
+   when this is over. */
+@keyframes contentOut { to { opacity: 0; transform: translateY(6px); } }
+body.is-ready .view.deploy .card.is-leaving { animation: contentOut 0.2s ease forwards; pointer-events: none; }
+@media (prefers-reduced-motion: reduce) { body.is-ready .view.deploy .card.is-leaving { animation: none; } }
+
+/* The terminal never shrinks below room for a run block and some of its output: in a short window the page scrolls (main does) instead of
+   leaving the blocks a strip a few lines high. */
+.view.deploy > .term-card { min-height: var(--term-min, 340px); }
+
+/* ── The Publish page ────────────────────────────────────────────────────────────────────────────────────────────
+   Three boxes: the form across the top, then the terminal (the wide one) with the runs beside it in a column of a fixed, readable width.
+   The form is one grid with one set of rules: a wide card puts Application, Ruleset, Version, Component and the Publish button on one row;
+   a narrower one wraps them into two or three rows of equal-height boxes; nothing is squeezed to fit and nothing is stretched to fill.
+   The page itself scrolls (main does) when the window is too short for the terminal's minimum height, so no part is cut off at the bottom. */
+.view.deploy { display: grid; gap: 12px; grid-template-columns: minmax(0, 1fr) 340px; grid-template-rows: auto minmax(var(--term-min, 300px), 1fr); grid-template-areas: 'form form' 'term runs'; }
+.view.deploy.no-runs { grid-template-columns: minmax(0, 1fr); grid-template-areas: 'form' 'term'; }
+.view.deploy.no-term { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); grid-template-areas: 'form' 'runs'; }
+/* With the terminal and the runs hidden the form keeps the height of its content, as it has with them shown: the grid does not hand its spare
+   height to the one row, and the form is not stretched to fill it. */
+.view.deploy { align-content: start; }
+.view.deploy.no-term > .publish-card { align-self: start; }
+.view.deploy.no-term.no-runs { grid-template-rows: auto; grid-template-areas: 'form'; }
+.view.deploy.no-runs > .publish-card, .view.deploy.no-runs > .term-card { width: auto; max-width: none; justify-self: stretch; }
+.view.deploy > .term-card { min-height: var(--term-min, 300px); }
+/* A card hides what overflows it, which makes its automatic minimum height zero, so a grid short of room squeezed the form's row and cut the bottom
+   of the form off. The form always keeps the height of its content; it is the terminal that gives way, and the page scrolls before anything is cropped. */
+.view.deploy > .publish-card { min-height: max-content; }
+
+.publish-card .card-head { padding: 9px 14px; flex-wrap: nowrap; }
+.publish-body {
+  display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 12px; align-items: stretch; padding: 10px 14px 14px;
+}
+/* Two quiet segments, only to group what belongs together: where the component goes (Application, Ruleset, Version) and what goes there
+   (the Component and its button). A thin outline, a barely tinted ground and a small caption on the line; no more colour, shadow or weight
+   than that, so the form reads as one compact block. */
+.seg {
+  min-width: 0; margin: 0; padding: 6px 12px 12px; border: 1px solid var(--group-line); border-radius: 8px;
+  background: color-mix(in srgb, var(--surface-2) 45%, transparent); display: grid; column-gap: 12px; row-gap: 10px; align-items: end;
+}
+.seg > legend { padding: 0 6px; margin-left: -4px; color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; }
+.seg-target { grid-template-columns: minmax(130px, 1fr) minmax(150px, 1.2fr) auto; }
+.seg-action { grid-template-columns: minmax(0, 1fr) auto auto; }
+.publish-body .field { gap: 5px; }
+.publish-body .pick-btn, .publish-body .btn-primary, .publish-body .btn-stop, .publish-body .btn-select { height: 34px; }
+.publish-body .actions-stack { display: contents; }
+.publish-body .main-action { min-width: 120px; }
+/* More options is a line of its own under the boxes, at the right. */
+/* More options sits on the top edge of the Publish segment, level with its caption, and what it opens floats under it. It takes no row of its own,
+   so the two segments are the same height and the form stays one compact block. */
+.seg-action { position: relative; }
+.publish-body .more-options { position: absolute; top: -9px; right: 10px; z-index: 6; padding: 0 6px; background: var(--surface); }
+.publish-body .more-options > summary { font-size: 11px; letter-spacing: 0.02em; padding: 0 2px; line-height: 17px; }
+.publish-body .more-options > .action-row {
+  position: absolute; top: 100%; right: 0; margin-top: 6px; width: max-content; max-width: min(92vw, 420px); padding: 8px; flex-wrap: wrap; justify-content: flex-end;
+  background: var(--surface); border: 1px solid var(--border-strong); border-radius: 8px; box-shadow: 0 10px 28px -10px rgba(0, 0, 0, 0.55);
+}
+.publish-body > .field-msg { grid-column: 1 / -1; }
+
+/* The version: three boxes, each with its arrows stacked beside it, so the control is as tall as the other boxes. The caption of each box
+   (Major, Minor, Patch) is its tooltip and its label for a screen reader. */
+.ver { gap: 5px; }
+.ver-part { display: grid; grid-template-columns: 40px 20px; grid-template-rows: 17px 17px; column-gap: 2px; align-items: stretch; width: auto; gap: 0 2px; }
+.ver-part .ver-in { grid-column: 1; grid-row: 1 / 3; width: 40px; height: 34px; }
+.ver-part .ver-up { grid-column: 2; grid-row: 1; width: 20px; height: 17px; border-radius: 4px 4px 2px 2px; }
+.ver-part .ver-down { grid-column: 2; grid-row: 2; width: 20px; height: 17px; border-radius: 2px 2px 4px 4px; }
+.ver-part .ver-cap { display: none; }
+.ver-dash { margin: 0 1px; align-self: center; }
+
+@container (max-width: 960px) {
+  .publish-body { grid-template-columns: minmax(0, 1fr); }
+}
+@container (max-width: 760px) {
+  .seg-target { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .seg-target > .f-version { grid-column: 1 / -1; }
+}
+@container (max-width: 600px) {
+  .seg-target, .seg-action { grid-template-columns: minmax(0, 1fr); }
+  .publish-body .main-action { min-width: 0; }
+}
+@media (max-width: 900px) {
+  .view.deploy, .view.deploy[class] { display: flex; flex-direction: column; }
+}
+
+/* ── The header's finish ─────────────────────────────────────────────────────────────────────────────────────────
+   Only surface and light, no change of layout: a bar that is a little translucent and frosted, a thin line of the accent colour along its
+   bottom edge that fades out to both sides, a mark with a soft glow, and tabs that lift when pointed at and show the chosen one as a
+   small raised pill with a ring in the accent colour. */
+.topbar {
+  position: relative;
+  background: color-mix(in srgb, var(--surface) 86%, transparent);
+  -webkit-backdrop-filter: saturate(1.4) blur(12px); backdrop-filter: saturate(1.4) blur(12px);
+  border-bottom-color: color-mix(in srgb, var(--border) 80%, transparent);
+}
+.topbar::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; pointer-events: none;
+  background: linear-gradient(90deg, transparent 0%, color-mix(in srgb, var(--accent) 70%, transparent) 16%, color-mix(in srgb, var(--blue) 55%, var(--accent)) 50%, color-mix(in srgb, var(--accent) 45%, transparent) 84%, transparent 100%);
+  opacity: 0.55; animation: hairlineIn 0.9s ease both;
+}
+@keyframes hairlineIn { from { opacity: 0; transform: scaleX(0.4); } to { opacity: 0.55; transform: none; } }
+.tabs { background: color-mix(in srgb, var(--surface-2) 80%, transparent); box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.12); }
+.tab { transition: background 0.2s ease, color 0.2s ease, box-shadow 0.25s ease, transform 0.2s ease; }
+.tab:hover:not([aria-selected='true']) { transform: translateY(-1px); }
+.tab[aria-selected='true'] {
+  background: var(--surface); color: var(--accent); font-weight: 600;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.22), 0 0 0 1px color-mix(in srgb, var(--accent) 40%, transparent);
+}
+.tab[aria-selected='true'] .count { border-color: color-mix(in srgb, var(--accent) 35%, var(--border)); color: var(--accent); }
+.topbar .btn-icon, .topbar .panel-toggle, .topbar .pill { transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease, color 0.2s ease; }
+.topbar .btn-icon:hover { transform: rotate(18deg); }
+@media (prefers-reduced-motion: reduce) {
+  .topbar::after, .mark, .tab, .topbar .btn-icon, .topbar .panel-toggle, .topbar .pill { animation: none !important; transition: none !important; }
+  .brand:hover .mark, .topbar .btn-icon:hover, .tab:hover:not([aria-selected='true']) { transform: none; }
+}
+
+/* ── Toggles, status and buttons ─────────────────────────────────────────────────────────────────────────────────
+   The two panel toggles are one joined switch: a rounded track, with each toggle a small pill that carries an indicator dot, hollow when the
+   panel is hidden and filled, with a glow, when it is shown, in the colour of that panel. The sign-in status takes a tint and a halo from its
+   state (green signed in, amber running low, red or rose a problem). Buttons get a little depth, lift when pointed at, and press in when
+   clicked. Only surface and motion: no sizes or places change. */
+.panel-toggles { gap: 2px; padding: 2px; border: 1px solid var(--border); border-radius: 999px; background: color-mix(in srgb, var(--surface-2) 80%, transparent); box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.12); }
+.panel-toggle { height: 24px; padding: 0 9px 0 8px; gap: 6px; border-radius: 999px; border-color: transparent; font-size: 12.5px; transition: background 0.2s ease, color 0.2s ease, box-shadow 0.25s ease, transform 0.15s ease; }
+.panel-toggle[aria-pressed='true'] { background: color-mix(in srgb, var(--tone) 16%, var(--surface)); border-color: transparent; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2), 0 0 0 1px color-mix(in srgb, var(--tone) 38%, transparent); }
+.panel-toggle:active { transform: scale(0.96); }
+
+.pill { transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; }
+.pill[role='status']:has(.dot.ok) { border-color: color-mix(in srgb, var(--green) 38%, var(--border-strong)); background: color-mix(in srgb, var(--green) 7%, var(--surface)); }
+.pill[role='status']:has(.dot.warn) { border-color: color-mix(in srgb, var(--amber) 42%, var(--border-strong)); background: color-mix(in srgb, var(--amber) 8%, var(--surface)); }
+.pill[role='status']:has(.dot.bad) { border-color: color-mix(in srgb, var(--red) 42%, var(--border-strong)); background: color-mix(in srgb, var(--red) 8%, var(--surface)); }
+.pill[role='status']:has(.dot.rose) { border-color: color-mix(in srgb, var(--rose) 42%, var(--border-strong)); background: color-mix(in srgb, var(--rose) 8%, var(--surface)); }
+.dot { transition: background 0.3s ease, box-shadow 0.3s ease; }
+.dot.ok { box-shadow: 0 0 0 3px color-mix(in srgb, var(--green) 24%, transparent); }
+.dot.warn { box-shadow: 0 0 0 3px color-mix(in srgb, var(--amber) 26%, transparent); }
+.dot.bad { box-shadow: 0 0 0 3px color-mix(in srgb, var(--red) 26%, transparent); }
+.dot.rose { box-shadow: 0 0 0 3px color-mix(in srgb, var(--rose) 26%, transparent); }
+
+.btn { transition: opacity 0.3s ease, background 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.25s ease, transform 0.15s ease, filter 0.2s ease; }
+.btn:hover:not(:disabled) { box-shadow: 0 2px 8px -3px rgba(0, 0, 0, 0.35); }
+.btn:active:not(:disabled) { transform: translateY(0.5px) scale(0.985); box-shadow: none; }
+.btn:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--accent-soft); border-color: var(--accent); }
+.btn-primary, .btn-signin {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 84%, #fff) 0%, var(--accent) 100%);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.28), 0 8px 16px -8px color-mix(in srgb, var(--accent) 80%, transparent), inset 0 1px 0 rgba(255, 255, 255, 0.28);
+}
+.btn-primary:hover:not(:disabled), .btn-signin:hover:not(:disabled) {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--accent-hover) 84%, #fff) 0%, var(--accent-hover) 100%); transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), 0 12px 20px -8px color-mix(in srgb, var(--accent) 90%, transparent), inset 0 1px 0 rgba(255, 255, 255, 0.32);
+}
+.btn-primary:active:not(:disabled), .btn-signin:active:not(:disabled) { transform: translateY(0.5px) scale(0.985); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), inset 0 1px 2px rgba(0, 0, 0, 0.2); }
+.btn-primary:disabled { box-shadow: none; }
+.btn-signin.is-failed { background: linear-gradient(180deg, color-mix(in srgb, var(--rose) 84%, #fff), var(--rose)); }
+.btn-tool { transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease; }
+.btn-tool:active { transform: scale(0.94); }
+@media (prefers-reduced-motion: reduce) {
+  .panel-toggle, .panel-toggle::after, .pill, .dot, .btn, .btn-tool { transition: none !important; }
+  .btn:active:not(:disabled), .btn-primary:hover:not(:disabled), .btn-signin:hover:not(:disabled), .btn-primary:active:not(:disabled), .panel-toggle:active, .btn-tool:active { transform: none; }
+}
+
+/* The logo is the same drawing as the browser tab icon (an inline copy in index.html), 26px so it sits in the 30px row. It tilts a little when the
+   name is pointed at. */
+.mark { flex: none; display: block; width: 26px; height: 26px; border-radius: 7px; transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.brand:hover .mark { transform: rotate(-6deg) scale(1.08); }
+
+/* Publish several: the list of components to tick, in the slide-over. */
+.btn-select svg { width: 16px; height: 16px; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.actions-stack.running .btn-select { opacity: 0.45; }
+.sel-target { margin-bottom: 10px; font-size: 13px; color: var(--muted); }
+.sel-bar { display: flex; align-items: center; gap: 6px; margin: 10px 0 8px; font-size: 13px; color: var(--muted); }
+.sel-bar .sel-count { flex: 1; }
+.sel-list { border: 1px solid var(--border); border-radius: 8px; background: var(--surface); max-height: min(52vh, 420px); overflow: auto; }
+.sel-row { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-bottom: 1px solid var(--border); font-size: 14px; cursor: pointer; }
+.sel-row:last-child { border-bottom: 0; }
+.sel-row:hover { background: var(--surface-2); }
+.sel-row.is-on { background: var(--accent-soft); }
+.sel-row input { width: 16px; height: 16px; flex: none; margin: 0; accent-color: var(--accent); cursor: pointer; }
+.sel-row:focus-within { outline: 2px solid var(--accent); outline-offset: -2px; }
+.sel-none { padding: 14px 12px; font-size: 13px; color: var(--muted); }
+.sel-opt { display: flex; align-items: flex-start; gap: 10px; margin-top: 14px; font-size: 14px; cursor: pointer; }
+.sel-opt input { width: 16px; height: 16px; flex: none; margin: 2px 0 0; accent-color: var(--accent); cursor: pointer; }
+.sel-opt b { display: block; font-weight: 600; }
+.sel-opt small { display: block; margin-top: 2px; font-size: 12px; color: var(--muted); }
+
+/* The search box in the Publish several sheet: a box like the hub's other inputs (the same corners, ground, hover and focus ring), a little taller,
+   with the magnifier inside it and a button to clear it. The border and the ring follow the field's focus, so the whole box lights up. */
+.sel-search { position: relative; display: flex; align-items: center; height: 40px; border: 1px solid var(--border-strong); border-radius: 6px; background: var(--surface); transition: border-color 0.15s ease, box-shadow 0.15s ease; }
+.sel-search:hover { border-color: var(--muted); }
+.sel-search:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.sel-search-icon { position: absolute; left: 14px; display: inline-flex; color: var(--muted); pointer-events: none; transition: color 0.15s ease; }
+.sel-search-icon svg { width: 18px; height: 18px; }
+.sel-search:focus-within .sel-search-icon { color: var(--accent); }
+.sel-search-input { flex: 1; min-width: 0; height: 100%; padding: 0 42px 0 40px; border: 0; border-radius: 6px; background: transparent; color: inherit; font: inherit; outline: none; }
+.sel-search-input::placeholder { color: var(--muted); }
+/* The browser's own clear mark is replaced by the button beside it, so there is one and it looks the same everywhere. */
+.sel-search-input::-webkit-search-cancel-button, .sel-search-input::-webkit-search-decoration { -webkit-appearance: none; appearance: none; display: none; }
+.sel-search-clear { position: absolute; right: 8px; display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; padding: 0; border: 0; border-radius: 5px; background: var(--border); color: var(--text-2); cursor: pointer; transition: background 0.15s ease, color 0.15s ease; }
+.sel-search-clear[hidden] { display: none; }
+.sel-search-clear svg { width: 12px; height: 12px; }
+.sel-search-clear:hover { background: var(--border-strong); color: var(--text); }
+.sel-search-clear:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+@media (prefers-reduced-motion: reduce) { .sel-search, .sel-search-icon, .sel-search-clear { transition: none; } }
+
+/* Publish several sits on the Publish row, after the Publish button, so the form stays one compact block. It stands out from the plain buttons
+   around it: an accent outline and a soft accent ground, which fills in on hover, so it reads as the second way to publish and not as a tool.
+   Its word shows whenever the card is wide enough for the Component picker to keep its room; a narrower card keeps the icon, and the tooltip
+   and the label for a screen reader always say the whole of it. */
+.publish-body .actions-stack .btn-select { width: auto; padding: 0 12px; border-color: var(--accent); background: var(--accent-soft); color: var(--accent-ink); font-weight: 600; }
+.publish-body .actions-stack .btn-select:hover:not(:disabled) { background: var(--accent); border-color: var(--accent); color: #fff; }
+.publish-body .actions-stack .btn-select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.publish-body .btn-select .lbl { display: none; }
+@container (min-width: 1300px) { .publish-body .btn-select .lbl { display: inline; } }
+/* The sheet's body is a column that can run out of height, and a box in it shrinks to fit. The search box, the bar and the option keep their
+   height; the list is what gives way, and it scrolls. */
+.sel-target, .sel-search, .sel-bar, .sel-opt { flex: none; }
+.sel-list { flex: 0 1 auto; min-height: 140px; }
+/* The sheet's own gap is wide for a form; this one is a list with a search above it, so it sits closer together. */
+.drawer-body:has(.sel-search) { gap: 10px; }
+.drawer-body:has(.sel-search) .sel-target { margin: 0; }
+.drawer-body:has(.sel-search) .sel-bar { margin: 0; }
+.drawer-body:has(.sel-search) .sel-opt { margin-top: 4px; }
+
+/* The Publish button: the one main action of the card, so it is the most finished thing on it. A faint light from above (a gradient and an
+   inner top edge), a soft glow of its own colour under it, and a state for each way it can be touched: hover brightens it, a press sets it
+   into the page, the keyboard gets a ring, and a disabled one goes dull so it never looks like something to press. Only this button: the
+   other primary buttons (Save, Add environment) keep the plain style. */
+.publish-body #btnPublish {
+  gap: 9px; padding: 0 18px; font-weight: 600; letter-spacing: 0.01em;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 86%, #fff) 0%, var(--accent) 100%);
+  border-color: color-mix(in srgb, var(--accent) 78%, #000);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.28), 0 1px 2px rgb(0 0 0 / 0.25), 0 6px 14px -6px color-mix(in srgb, var(--accent) 70%, transparent);
+}
+.publish-body #btnPublish svg { width: 17px; height: 17px; stroke-width: 1.8; }
+.publish-body #btnPublish:hover:not(:disabled) {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--accent-hover) 86%, #fff) 0%, var(--accent-hover) 100%);
+  border-color: color-mix(in srgb, var(--accent-hover) 78%, #000);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.3), 0 1px 2px rgb(0 0 0 / 0.3), 0 8px 18px -6px color-mix(in srgb, var(--accent) 80%, transparent);
+}
+.publish-body #btnPublish:active:not(:disabled) { background: var(--accent-hover); box-shadow: inset 0 2px 4px rgb(0 0 0 / 0.28); }
+.publish-body #btnPublish:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.publish-body #btnPublish:disabled { box-shadow: none; filter: saturate(0.5); }
+/* Its swap with Stop keeps its own timing; the shadow joins the things that change smoothly. */
+.main-action > #btnPublish { transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), visibility 0s, background 0.2s, border-color 0.2s, box-shadow 0.2s, filter 0.2s; }
+@media (prefers-reduced-motion: reduce) { .main-action > #btnPublish { transition: none; } }
+
+/* More options: a small chip on the top edge of the Publish box instead of a faint word. Larger, bolder text and an outline of its own make it
+   something to find; hover and open turn it to the accent colour. It still sits on the edge, so it takes no row and the card stays compact. */
+.publish-body .more-options { top: -18px; right: 12px; padding: 0; background: transparent; }
+.publish-body .more-options > summary {
+  display: inline-flex; align-items: center; gap: 7px; height: 28px; padding: 0 12px 0 10px; border: 1px solid var(--group-line); border-radius: 14px;
+  background: var(--surface); color: var(--text-2); font-size: 13px; font-weight: 600; letter-spacing: 0.01em; line-height: 1;
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+.publish-body .more-options > summary:hover, .publish-body .more-options[open] > summary { border-color: var(--accent); color: var(--accent-ink); background: var(--accent-soft); }
+.publish-body .more-options > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { .publish-body .more-options > summary { transition: none; } }
+
+/* ── Publish, Publish several and their dialogs ─────────────────────────── */
+
+/* Publish: the rocket lifts a little under the pointer and a soft sheen crosses the button, so the main action feels alive without moving the layout. */
+#btnPublish { position: relative; overflow: hidden; }
+#btnPublish svg { transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1); }
+#btnPublish:hover:not(:disabled) svg { transform: translateY(-2px) rotate(-8deg); }
+#btnPublish::after { content: ''; position: absolute; inset: 0; background: linear-gradient(105deg, transparent 35%, rgb(255 255 255 / 0.28) 50%, transparent 65%); transform: translateX(-120%); pointer-events: none; }
+#btnPublish:hover:not(:disabled)::after { transform: translateX(120%); transition: transform 0.7s ease; }
+.btn-select svg { transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1); }
+.btn-select:hover:not(:disabled) svg { transform: translateY(-1px) scale(1.08); }
+
+/* The slide-over: where it goes, then a search, a select-all with a progress line, the list, and a switch for the run. */
+.sel-target { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 8px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 10px; background: linear-gradient(180deg, var(--surface-2), var(--surface)); font-size: 13px; color: var(--muted); }
+.sel-target b { color: var(--text); font-weight: 600; }
+.sel-target-label { font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; }
+.sel-target-chip { margin-left: auto; padding: 1px 8px; border-radius: 10px; background: var(--accent-soft); color: var(--accent-ink); font-size: 11.5px; font-weight: 600; }
+.sel-search { border-radius: 10px; }
+.sel-search-input { border-radius: 10px; }
+.sel-bar { margin: 4px 0 0; }
+.sel-all { flex: 1; display: flex; align-items: center; gap: 10px; cursor: pointer; font-weight: 500; color: var(--text-2); }
+.sel-all input { width: 16px; height: 16px; margin: 0; accent-color: var(--accent); cursor: pointer; }
+.sel-all input:disabled { cursor: not-allowed; }
+.sel-clear { padding: 3px 8px; border: 0; border-radius: 6px; background: transparent; color: var(--muted); font: inherit; cursor: pointer; transition: background 0.15s ease, color 0.15s ease; }
+.sel-clear:hover { background: var(--surface-2); color: var(--accent-ink); }
+.sel-meter { height: 3px; border-radius: 2px; background: var(--border); overflow: hidden; flex: none; }
+.sel-meter-fill { display: block; height: 100%; width: 0; border-radius: 2px; background: linear-gradient(90deg, var(--accent), color-mix(in srgb, var(--accent) 60%, var(--blue))); transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1); }
+
+.sel-list { border-radius: 10px; padding: 4px; scrollbar-width: thin; }
+.sel-row { position: relative; gap: 12px; padding: 9px 10px; border: 0; border-radius: 8px; transition: background 0.15s ease; }
+.sel-row.is-on { background: var(--accent-soft); }
+.sel-row input { position: absolute; opacity: 0; width: 100%; height: 100%; inset: 0; margin: 0; cursor: pointer; }
+.sel-row:focus-within { outline: 2px solid var(--accent); outline-offset: -2px; }
+.sel-check { flex: none; display: grid; place-items: center; width: 20px; height: 20px; border: 1.5px solid var(--border-strong); border-radius: 50%; color: #fff; background: var(--surface); transition: background 0.18s ease, border-color 0.18s ease, transform 0.18s cubic-bezier(0.22, 1, 0.36, 1); }
+.sel-check svg { width: 12px; height: 12px; stroke-dasharray: 24; stroke-dashoffset: 24; transition: stroke-dashoffset 0.25s ease 0.05s; }
+.sel-row:hover .sel-check { border-color: var(--accent); }
+.sel-row.is-on .sel-check { background: var(--accent); border-color: var(--accent); transform: scale(1.06); }
+.sel-row.is-on .sel-check svg { stroke-dashoffset: 0; }
+.sel-row.is-on .sel-name { font-weight: 600; }
+
+.sel-opt { justify-content: space-between; align-items: center; gap: 16px; padding: 12px 14px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface-2); }
+.sel-opt-text { min-width: 0; }
+.sel-switch { appearance: none; flex: none; position: relative; width: 38px; height: 22px; margin: 0; border-radius: 11px; background: var(--border-strong); cursor: pointer; transition: background 0.2s ease; }
+.sel-switch::after { content: ''; position: absolute; top: 2px; left: 2px; width: 18px; height: 18px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgb(0 0 0 / 0.3); transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1); }
+.sel-switch:checked { background: var(--accent); }
+.sel-switch:checked::after { transform: translateX(16px); }
+.sel-switch:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* The question dialog: a <dialog> shown with showModal, so the browser supplies the backdrop, Escape and the focus trap. */
+.dlg { width: min(440px, calc(100vw - 32px)); padding: 0; border: 1px solid var(--border); border-radius: 16px; background: var(--surface); color: var(--text); box-shadow: var(--shadow-pop); animation: dlgIn 0.22s cubic-bezier(0.22, 1, 0.36, 1); }
+.dlg::backdrop { background: rgb(8 20 36 / 0.45); backdrop-filter: blur(3px); animation: dlgFade 0.2s ease; }
+.dlg form { display: flex; flex-direction: column; gap: 12px; padding: 22px 22px 18px; }
+.dlg-head { display: flex; align-items: center; gap: 12px; }
+.dlg-head h2 { font-size: 17px; font-weight: 600; line-height: 1.25; }
+.dlg-icon { flex: none; display: grid; place-items: center; width: 38px; height: 38px; border-radius: 12px; background: var(--accent-soft); color: var(--accent-ink); }
+.dlg-icon svg { width: 20px; height: 20px; }
+.dlg.is-danger .dlg-icon { background: color-mix(in srgb, var(--red) 14%, transparent); color: var(--red); }
+.dlg-lead { color: var(--text-2); line-height: 1.5; }
+.dlg-chips { display: flex; flex-wrap: wrap; gap: 6px; max-height: 120px; overflow: auto; }
+.dlg-chip { padding: 2px 9px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface-2); font-size: 12px; }
+.dlg-chip.is-more { color: var(--muted); border-style: dashed; }
+.dlg-note { padding: 9px 12px; border-radius: 8px; background: var(--surface-2); color: var(--muted); font-size: 12.5px; line-height: 1.45; }
+.dlg-foot { display: flex; justify-content: flex-end; gap: 8px; margin-top: 4px; }
+.dlg-foot .btn { height: 36px; padding: 0 18px; border-radius: 8px; }
+.btn-stop-now { background: var(--red); border-color: var(--red); color: #fff; font-weight: 600; }
+.btn-stop-now:hover:not(:disabled) { background: var(--red); border-color: var(--red); filter: brightness(0.92); }
+@keyframes dlgIn { from { opacity: 0; transform: translateY(10px) scale(0.97); } to { opacity: 1; transform: none; } }
+@keyframes dlgFade { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  #btnPublish svg, #btnPublish::after, .btn-select svg, .sel-check, .sel-check svg, .sel-meter-fill, .sel-switch, .sel-switch::after, .dlg, .dlg::backdrop { transition: none !important; animation: none !important; }
+}
+
+/* The latest run is the one being looked for, so its card has a thin edge in its status colour: green for done, red for failed, blue while it
+   runs, amber for stopped or a locked ruleset, violet for a version Pega does not accept, rose for a sign-in problem. In the terminal the newest
+   block is the first, as in Recent runs. Hover and the flash keep their own border, and Recent runs' selected bar stays alongside the edge. */
+.term > .block:first-child, .runs > .run-card:first-child { --edge: var(--border-strong); }
+.term > .block.ok:first-child, .runs > .run-card.is-ok:first-child { --edge: var(--green); }
+.term > .block.bad:first-child, .runs > .run-card.is-bad:first-child { --edge: var(--red); }
+.term > .block.run:first-child, .runs > .run-card.is-running:first-child { --edge: var(--blue); }
+.term > .block:is(.stopped, .locked):first-child, .runs > .run-card:is(.is-stopped, .is-locked):first-child { --edge: var(--amber); }
+.term > .block.invalid:first-child, .runs > .run-card.is-invalid:first-child { --edge: var(--violet); }
+.term > .block.auth:first-child, .runs > .run-card.is-auth:first-child { --edge: var(--rose); }
+.term > .block:first-child:not(:hover):not(.flash) { border-color: color-mix(in srgb, var(--edge) 60%, var(--term-line)); }
+.runs > .run-card:first-child { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--edge) 55%, var(--border)); }
+.runs > .run-card.sel:first-child { box-shadow: inset 3px 0 0 var(--accent), inset 0 0 0 1px color-mix(in srgb, var(--edge) 55%, var(--border)); }
+
+/* Recent runs: the run number stands where the dot was, plain grey text, the same grey as the numbers in the terminal; how the run went is shown by the card's edge. */
+.run-card { grid-template-columns: 34px minmax(0, 1fr) auto; --tone: var(--muted); }
+.run-card.is-ok { --tone: var(--green); } .run-card.is-bad { --tone: var(--red); } .run-card.is-running { --tone: var(--blue); }
+.run-card:is(.is-stopped, .is-locked) { --tone: var(--amber); } .run-card.is-invalid { --tone: var(--violet); } .run-card.is-auth { --tone: var(--rose); }
+.run-n { align-self: start; min-width: 30px; padding-top: 1px; color: var(--term-muted); font-size: 11.5px; font-weight: 500; font-variant-numeric: tabular-nums; line-height: 1.3; }
+
+/* The Terminal and Runs toggles in the header use the accent: filled with it, and white, when the panel is shown; a plain outline when it is hidden. */
+.panel-toggle { --tone: var(--accent); }
+.panel-toggle[aria-pressed='true'] { background: var(--accent); color: #fff; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25); }
+.panel-toggle[aria-pressed='true']:hover { background: var(--accent-hover); color: #fff; }
+.panel-toggle[aria-pressed='true'] .fill { opacity: 0.9; }
+
+/* Corners: one calmer range across the page (small controls 6px, groups and cards 8px, dialogs 12px). The header's pills and the counts were fully
+   rounded, which made them look softer than the cards under them. Circles (dots, check marks) and the on/off switch keep their round shape. */
+.tabs, .panel-toggles { border-radius: 8px; }
+.tab, .panel-toggle, .pill, .auth-time, .btn-signin, .tab .count, .card-head .count, .badge, .b-chip, .dlg-chip, .sel-target-chip, .jump { border-radius: 6px; }
+.sel-target, .sel-list, .sel-opt { border-radius: 8px; }
+.sel-search, .sel-search-input { border-radius: 6px; }
+.dlg { border-radius: 12px; }
+.dlg-icon { border-radius: 10px; }
+
+/* With the terminal open, Recent runs drops the server and ruleset: each run's block in the terminal shows them already. Hidden, the cards
+   show them again, since nothing else would. */
+.view.deploy:not(.no-term) .run-card .sub .where { display: none; }
+
+/* The line under the terminal is one line that says what to do next; a long one is cut with an ellipsis (the full text is its tooltip). */
+#termHint { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* The line under the terminal is the one thing that says what to do next, so it stands out from the terminal: brighter text, a tinted
+   background and a bar down its left edge, in a colour that says the state (blue while it runs, amber when something is needed, red after a
+   failure, green when ready). */
+.term-input { --hint: var(--term-muted); position: relative; padding: 12px 16px 12px 18px; overflow: hidden; border-color: color-mix(in srgb, var(--hint) 45%, var(--term-line)); background: color-mix(in srgb, var(--hint) 10%, var(--term-block)); color: var(--term-text); font-size: 13.5px; font-weight: 500; transition: background 0.2s ease, border-color 0.2s ease; }
+.term-input::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--hint); }
+.term-input[data-tone='busy'] { --hint: var(--blue); }
+.term-input[data-tone='warn'] { --hint: var(--amber); }
+.term-input[data-tone='bad'] { --hint: var(--red); }
+.term-input[data-tone='ok'] { --hint: var(--green); }
+.term-input .chev { color: var(--hint); }
+
+/* ── Button motion (see motion.js) ──────────────────────────────────────── */
+
+/* The ripple is clipped to the button, so the buttons hide what spills out of them. */
+.btn, .btn-signin, .btn-tool { position: relative; overflow: hidden; }
+.ripple { position: absolute; border-radius: 50%; background: currentColor; opacity: 0.28; transform: scale(0); pointer-events: none; animation: ripple 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+@keyframes ripple { to { transform: scale(1); opacity: 0; } }
+
+/* Publish: the rocket lifts off up and to the right as the run starts. */
+#btnPublish.is-launching svg { animation: btnLaunch 0.6s cubic-bezier(0.5, 0, 0.75, 0) forwards; }
+@keyframes btnLaunch {
+  0% { transform: none; opacity: 1; }
+  30% { transform: translate(-1px, 2px) rotate(-4deg); opacity: 1; }
+  100% { transform: translate(16px, -22px) rotate(-14deg) scale(0.8); opacity: 0; }
+}
+
+/* The result on the button that started the run: a ring spreads from it, green for done and red for failed. The button itself never moves
+   or changes size, so nothing under or beside it shifts. */
+.btn.flash-ok { animation: flashOk 0.9s ease-out; }
+@keyframes flashOk {
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--green) 70%, transparent); }
+  100% { box-shadow: 0 0 0 12px color-mix(in srgb, var(--green) 0%, transparent); }
+}
+.btn.flash-bad { animation: flashBad 0.9s ease-out; }
+@keyframes flashBad {
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--red) 70%, transparent); }
+  100% { box-shadow: 0 0 0 12px color-mix(in srgb, var(--red) 0%, transparent); }
+}
+/* Publish stays where it is under the pointer: no lift on hover or press (the rocket inside it still moves). */
+#btnPublish:hover:not(:disabled), #btnPublish:active:not(:disabled) { transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .ripple, #btnPublish.is-launching svg, .btn.flash-ok, .btn.flash-bad { animation: none !important; }
+  .ripple { display: none; }
+}
+
+/* The fold button: chevrons pointing in while runs are open (it will collapse them), pointing out once all are closed (it will open them). */
+#btnFold .ic-expand, #btnFold[data-state='closed'] .ic-collapse { display: none; }
+#btnFold[data-state='closed'] .ic-expand { display: block; }
+#btnFold:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* Search in the terminal: a box in its heading; runs that do not match are hidden, and the matches are marked. */
+.term-search { position: relative; display: flex; align-items: center; flex: 1 1 160px; max-width: 280px; min-width: 120px; height: 28px; margin-left: auto; border: 1px solid var(--border-strong); border-radius: 6px; background: var(--surface); transition: border-color 0.15s ease, box-shadow 0.15s ease; }
+.term-search:hover { border-color: var(--muted); }
+.term-search:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.term-search > svg { position: absolute; left: 9px; width: 14px; height: 14px; color: var(--muted); pointer-events: none; }
+.term-search:focus-within > svg { color: var(--accent); }
+.term-search input { flex: 1; min-width: 0; height: 100%; padding: 0 56px 0 30px; border: 0; border-radius: 6px; background: transparent; color: inherit; font: inherit; font-size: 12.5px; outline: none; }
+.term-search input::placeholder { color: var(--muted); }
+.term-search input::-webkit-search-cancel-button { -webkit-appearance: none; appearance: none; display: none; }
+.term-search-n { position: absolute; right: 8px; font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; pointer-events: none; }
+.term-search-n[hidden] { display: none; }
+.block.no-match { display: none; }
+mark.hit { background: color-mix(in srgb, var(--amber) 45%, transparent); color: inherit; border-radius: 2px; padding: 0 1px; }
+.term.no-hits::before { content: 'No run matches the search.'; display: block; padding: 18px 20px; color: var(--term-muted); font-size: 12.5px; }

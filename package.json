@@ -1,0 +1,60 @@
+{
+  "name": "@sanjeevsaniel/dx-deployment-hub",
+  "version": "1.0.0",
+  "description": "Build and publish Pega Constellation custom DX components from one page, inside your Storybook or on its own. No CLI commands to type.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Sanjeev Kujur",
+  "keywords": [
+    "pega",
+    "constellation",
+    "dx-components",
+    "storybook",
+    "vite-plugin",
+    "deployment"
+  ],
+  "exports": {
+    ".": "./src/vite-plugin.mjs",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "dx-hub": "./bin/dx-hub.mjs"
+  },
+  "files": [
+    "bin",
+    "src",
+    "hub.config.sample.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test test/hub.test.mjs"
+  },
+  "dependencies": {
+    "@fontsource-variable/inter": "^5.3.0",
+    "@fontsource-variable/jetbrains-mono": "^5.3.0"
+  },
+  "peerDependencies": {
+    "@pega/custom-dx-components": ">=26.1.0",
+    "vite": ">=5"
+  },
+  "peerDependenciesMeta": {
+    "vite": {
+      "optional": true
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SanjeevSaniel/dx-deployment-hub.git"
+  },
+  "homepage": "https://github.com/SanjeevSaniel/dx-deployment-hub#readme",
+  "bugs": {
+    "url": "https://github.com/SanjeevSaniel/dx-deployment-hub/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
