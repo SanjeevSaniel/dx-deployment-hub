@@ -628,3 +628,65 @@ test('shortName drops the prefix it was told and spaces the words', () => {
   setNamePrefix('');
   assert.equal(shortName('Acme_Team_Table'), 'Acme Team Table');
 });
+
+import { spawnSync } from 'node:child_process';
+import { existsSync, mkdirSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+
+const bin = fileURLToPath(new URL('../bin/dx-hub.mjs', import.meta.url));
+const dxHub = (cwd, ...args) =>
+  spawnSync(process.execPath, [bin, ...args], { cwd, encoding: 'utf8', env: { ...process.env, DX_HUB_ROOT: cwd } });
+
+test('eject copies the hub into the project, and the copy can be imported on its own', async () => {
+  const project = mkdtempSync(join(tmpdir(), 'dxhub-eject-'));
+  try {
+    writeFileSync(join(project, 'package.json'), '{"name":"p"}');
+    const run = dxHub(project, 'eject');
+    assert.equal(run.status, 0, run.stderr);
+    for (const file of ['server.mjs', 'vite-plugin.mjs', 'README.md', 'api/index.mjs', 'web/index.html'])
+      assert.ok(existsSync(join(project, 'tools/dx-hub', file)), `${file} was copied`);
+    assert.ok(existsSync(join(project, 'hub.config.sample.json')), 'the sample config was added');
+    assert.match(readFileSync(join(project, '.gitignore'), 'utf8'), /\.dx-hub\//);
+    assert.match(run.stdout, /import \{ dxHub \} from '\.\.\/tools\/dx-hub\/vite-plugin\.mjs'/);
+    assert.match(run.stdout, /"hub": "node tools\/dx-hub\/server\.mjs"/);
+  } finally {
+    rmSync(project, { recursive: true, force: true });
+  }
+});
+
+test('eject will not overwrite a folder that has files, unless told to', () => {
+  const project = mkdtempSync(join(tmpdir(), 'dxhub-eject-'));
+  try {
+    writeFileSync(join(project, 'package.json'), '{"name":"p"}');
+    assert.equal(dxHub(project, 'eject').status, 0);
+    const again = dxHub(project, 'eject');
+    assert.equal(again.status, 1);
+    assert.match(again.stderr, /not empty/);
+    assert.equal(dxHub(project, 'eject', '--force').status, 0);
+    assert.equal(dxHub(project, 'eject', 'vendor/hub').status, 0, 'another folder is fine');
+    assert.ok(existsSync(join(project, 'vendor/hub/server.mjs')));
+  } finally {
+    rmSync(project, { recursive: true, force: true });
+  }
+});
+
+test('eject refuses a folder outside the project, and a folder that is not a project', () => {
+  const project = mkdtempSync(join(tmpdir(), 'dxhub-eject-'));
+  try {
+    writeFileSync(join(project, 'package.json'), '{"name":"p"}');
+    const outside = dxHub(project, 'eject', '../elsewhere');
+    assert.equal(outside.status, 1);
+    assert.match(outside.stderr, /inside your project/);
+    assert.equal(existsSync(join(project, '..', 'elsewhere')), false);
+    const empty = mkdtempSync(join(tmpdir(), 'dxhub-noproject-'));
+    try {
+      const run = dxHub(empty, 'eject');
+      assert.equal(run.status, 1);
+      assert.match(run.stderr, /No package\.json/);
+    } finally {
+      rmSync(empty, { recursive: true, force: true });
+    }
+  } finally {
+    rmSync(project, { recursive: true, force: true });
+  }
+});

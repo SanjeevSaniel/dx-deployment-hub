@@ -7,7 +7,8 @@ on:
     tags: ['v*']
 
 permissions:
-  contents: read
+  # write: to attach the downloads to the GitHub release
+  contents: write
   # Lets npm record where the package was built (the "provenance" badge on npmjs.com).
   id-token: write
 
@@ -33,3 +34,13 @@ jobs:
       - run: npm publish --provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      # After the package is on npm: a GitHub release with the files people can download.
+      - name: Release with downloads
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          npm pack
+          version="${GITHUB_REF_NAME#v}"
+          zip "dx-deployment-hub-${version}.zip" ./*.tgz INSTALL.md
+          gh release create "$GITHUB_REF_NAME" ./*.tgz "dx-deployment-hub-${version}.zip" \
+            --title "$GITHUB_REF_NAME" --generate-notes
