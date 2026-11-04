@@ -1,6 +1,6 @@
 {
   "name": "@sanjeevsaniel/dx-deployment-hub",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Build and publish Pega Constellation custom DX components from one page, inside your Storybook or on its own. No CLI commands to type.",
   "type": "module",
   "license": "MIT",

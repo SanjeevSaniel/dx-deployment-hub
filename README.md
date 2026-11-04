@@ -71,3 +71,7 @@ npm pack
 ## Shorter component names
 
 Component folders often share a team prefix (`Acme_Team_ServerPaginatedTable`). The page drops it for display and spaces the words (`Server Paginated Table`). It uses `"namePrefix"` from `hub.config.json` if you set one, otherwise the prefix all your components share. The real folder name is always what is built and sent.
+
+## Status
+
+Early release (0.x). The install, the setup command, the standalone page and the page inside Storybook 10 have been run for real. A real publish to a Pega server has not been checked yet, so try it on a development server first. Issues and feedback are welcome.
