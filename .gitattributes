@@ -1,0 +1,5 @@
+# One line ending everywhere, so the dx-hub script (shebang) and the workflows work on every system.
+* text=auto eol=lf
+*.tgz binary
+*.zip binary
+*.woff2 binary
