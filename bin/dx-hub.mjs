@@ -109,10 +109,22 @@ function eject() {
   say('-', 'Optional fonts: npm i -D @fontsource-variable/inter @fontsource-variable/jetbrains-mono');
 }
 
-if (command === 'init') init();
+const usage = [
+  'Usage: dx-hub [command] [options]',
+  '',
+  '  (none)           start the hub on its own (http://localhost:3050/hub)',
+  '  init             set this project up to use the installed package',
+  '  eject [folder]   copy the hub source into this project (default tools/dx-hub)',
+  '',
+  'Options: --port 3050   --host [address]   --force   --help   --version',
+].join('\n');
+
+if (args.includes('--help') || args.includes('-h') || command === 'help') console.log(usage);
+else if (args.includes('--version') || args.includes('-v')) console.log(JSON.parse(readFileSync(join(packageDir, 'package.json'), 'utf8')).version);
+else if (command === 'init') init();
 else if (command === 'eject') eject();
 else if (command === 'serve') await import('../src/server.mjs');
 else {
-  console.log('Usage: dx-hub [serve | init | eject [folder]] [--port 3050] [--host [address]] [--force]');
-  process.exit(command === 'help' || command === '--help' ? 0 : 1);
+  console.error(`Unknown command: ${command}\n\n${usage}`);
+  process.exit(1);
 }

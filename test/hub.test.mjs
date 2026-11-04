@@ -690,3 +690,23 @@ test('eject refuses a folder outside the project, and a folder that is not a pro
     rmSync(project, { recursive: true, force: true });
   }
 });
+
+test('--help and --version answer at once and do not start the server', () => {
+  const project = mkdtempSync(join(tmpdir(), 'dxhub-help-'));
+  try {
+    writeFileSync(join(project, 'package.json'), '{"name":"p"}');
+    for (const flagName of ['--help', '-h']) {
+      const run = spawnSync(process.execPath, [bin, flagName], { cwd: project, encoding: 'utf8', timeout: 8000 });
+      assert.equal(run.status, 0, `${flagName} should exit by itself`);
+      assert.match(run.stdout, /Usage: dx-hub/);
+    }
+    const version = spawnSync(process.execPath, [bin, '--version'], { cwd: project, encoding: 'utf8', timeout: 8000 });
+    assert.equal(version.status, 0);
+    assert.match(version.stdout.trim(), /^\d+\.\d+\.\d+/);
+    const unknown = spawnSync(process.execPath, [bin, 'nonsense'], { cwd: project, encoding: 'utf8', timeout: 8000 });
+    assert.equal(unknown.status, 1);
+    assert.match(unknown.stderr, /Unknown command: nonsense/);
+  } finally {
+    rmSync(project, { recursive: true, force: true });
+  }
+});
