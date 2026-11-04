@@ -18,7 +18,7 @@
     "./package.json": "./package.json"
   },
   "bin": {
-    "dx-hub": "./bin/dx-hub.mjs"
+    "dx-hub": "bin/dx-hub.mjs"
   },
   "files": [
     "bin",
